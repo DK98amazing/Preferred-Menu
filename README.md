@@ -11,14 +11,12 @@
 2. 后台：由于响应式编程的特性，Spring WebFlux和Reactor底层需要支持异步的运行环境，比如Netty和Undertow；也可以运行在支持异步I/O的
        Servlet 3.1的容器之上，比如Tomcat（8.0.23及以上）和Jetty（9.0.4及以上）。
 ```
-Netty+Tomcat:lgy
-Undertow+Jetty:hl
+最终选择Netty最后运行环境，netty具备处理基本http协议的能力，但需要自己实现web相关的功能。选择原因，理解netty。
 ```
 3. 框架：spring boot架构。#分布式系统。微服务架构。Rpc通信（dubbo，grpc）。消息中间件（kafka，redis）。
 4. 微服务架构：spring cloud：
 ```
-dubbo:lgy
-grpc:hl
+决定使用dubbo作为rpc框架，考虑下dubbo通过配置代码侵入性底
 kafka：hl
 redis:lgy
 ```
