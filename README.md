@@ -36,3 +36,7 @@ redis:lgy
   3. 为菜单定义名称，
   4. 用户管理：
   5. 店铺管理：
+  
+  - 参考资料
+  1. dubbo与spring cloud
+       https://www.cnblogs.com/xishuai/archive/2018/04/13/dubbo-and-spring-cloud.html
