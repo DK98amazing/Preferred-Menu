@@ -46,3 +46,5 @@ redis:lgy
        https://www.zhihu.com/question/31937124/answer/406295371
   4. 申请小程序账户
        https://baijiahao.baidu.com/s?id=1612907296930000897&wfr=spider&for=pc
+  5. kafka
+       http://www.cnblogs.com/likehua/p/3999538.html
