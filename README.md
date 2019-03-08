@@ -42,3 +42,5 @@ redis:lgy
        https://www.cnblogs.com/xishuai/archive/2018/04/13/dubbo-and-spring-cloud.html
   2. wechat docment
        https://developers.weixin.qq.com/miniprogram/dev/devtools/devtools.html?t=19030421
+  3. netty实现servlet容器
+       https://www.zhihu.com/question/31937124/answer/406295371
