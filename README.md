@@ -44,3 +44,5 @@ redis:lgy
        https://developers.weixin.qq.com/miniprogram/dev/devtools/devtools.html?t=19030421
   3. netty实现servlet容器
        https://www.zhihu.com/question/31937124/answer/406295371
+  4. 申请小程序账户
+       https://baijiahao.baidu.com/s?id=1612907296930000897&wfr=spider&for=pc
