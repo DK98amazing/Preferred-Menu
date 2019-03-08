@@ -40,3 +40,5 @@ redis:lgy
 - 参考资料
   1. dubbo与spring cloud：
        https://www.cnblogs.com/xishuai/archive/2018/04/13/dubbo-and-spring-cloud.html
+  2. wechat docment
+       https://developers.weixin.qq.com/miniprogram/dev/devtools/devtools.html?t=19030421
