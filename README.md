@@ -48,3 +48,5 @@ redis:lgy
        https://baijiahao.baidu.com/s?id=1612907296930000897&wfr=spider&for=pc
   5. kafka
        http://www.cnblogs.com/likehua/p/3999538.html
+  6. spring boot 中使用netty做web服务器
+  	   https://blog.csdn.net/xx753277/article/details/84935718
