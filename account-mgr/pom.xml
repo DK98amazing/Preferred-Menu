@@ -30,7 +30,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <maimClass>com.preferrd.menu.main.Application</maimClass>
+                    <mainClass>com.preferrd.menu.main.Application</mainClass>
                 </configuration>
                 <executions>
                     <execution>
