@@ -10,8 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @SpringBootApplication
 //@MapperScan(basePackages = "tk.mybatis.springboot.mapper")
-@RestController
-@RequestMapping(value = "/rest")
+@RestController @RequestMapping(value = "/rest")
 public class Application {
 
     public static void main(String[] args) {
