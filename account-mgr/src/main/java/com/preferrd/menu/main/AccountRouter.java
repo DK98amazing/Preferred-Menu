@@ -18,6 +18,6 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @Configuration public class AccountRouter {
 
     @Bean public RouterFunction<ServerResponse> routerFunction(AccountHandler accountHandler) {
-        return RouterFunctions.route(GET("/helloReactive").and(accept(MediaType.TEXT_PLAIN)), accountHandler::hello);
+        return RouterFunctions.route(GET("/helloReactive").and(accept(MediaType.APPLICATION_STREAM_JSON)), accountHandler::hello);
     }
 }
