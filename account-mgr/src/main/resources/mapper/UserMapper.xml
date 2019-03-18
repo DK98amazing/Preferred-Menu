@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.copy.dao.UserDao">
+
+
+    <select id="getNameById" parameterType="com.preferrd.menu.main.model.User"
+            resultType="com.preferrd.menu.main.model.User">
+		SELECT * FROM user WHERE ID = #{id}
+	</select>
+
+</mapper>
