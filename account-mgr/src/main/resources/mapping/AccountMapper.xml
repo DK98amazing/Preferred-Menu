@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.preferrd.menu.mapper.AccountMapper">
+ 
+    <resultMap id="BaseResultMap" type="com.preferrd.menu.dao.bean.Account">
+        <result column="accountId" jdbcType="VARCHAR" property="accountId" />
+        <result column="userName" jdbcType="VARCHAR" property="userName" />
+        <result column="passWord" jdbcType="VARCHAR" property="password" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="cardId" jdbcType="VARCHAR" property="cardId" />
+        <result column="reallName" jdbcType="VARCHAR" property="reallName" />
+    </resultMap>
+ 
+    <select id="selectAll" resultType="com.preferrd.menu.dao.bean.Account">
+        select * from account
+    </select>
+
+    <select id="select" resultType="com.preferrd.menu.dao.bean.Account">
+        select * from user where accountId = #{accountId}
+    </select>
+ 
+</mapper>
