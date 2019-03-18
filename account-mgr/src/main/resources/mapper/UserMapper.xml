@@ -4,7 +4,7 @@
 <mapper namespace="com.preferrd.menu.main.dao.UserDao">
     <select id="getNameById" parameterType="java.lang.String"
             resultType="com.preferrd.menu.main.model.User">
-		SELECT * FROM user WHERE id = #{id}
+		SELECT * FROM test WHERE id = #{id}
 	</select>
 
 </mapper>

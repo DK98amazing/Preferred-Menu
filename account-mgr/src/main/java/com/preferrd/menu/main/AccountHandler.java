@@ -1,6 +1,7 @@
 package com.preferrd.menu.main;
 
 
+import com.preferrd.menu.main.model.User;
 import com.preferrd.menu.main.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -50,6 +51,8 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
             id = "1";
         }
         System.out.println("id: ---------" + id);
-        return ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(userService.getNameById(id)));
+        User user = userService.getNameById(id);
+        return ok().contentType(MediaType.APPLICATION_JSON)
+            .body(BodyInserters.fromObject(null == user ? "data not exist" : user));
     }
 }
