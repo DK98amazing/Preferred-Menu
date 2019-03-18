@@ -14,4 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
     @Transactional @Override public User getNameById(String id) {
         return userDao.getNameById(id);
     }
+
+    @Transactional @Override public void addUser(User user) {
+        userDao.addUser(user);
+    }
 }

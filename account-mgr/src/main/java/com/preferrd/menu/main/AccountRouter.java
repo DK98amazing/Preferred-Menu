@@ -8,6 +8,7 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 
 /**
@@ -20,6 +21,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
     @Bean public RouterFunction<ServerResponse> routerFunction(AccountHandler accountHandler) {
         return RouterFunctions
             .route(GET("/helloReactive").and(accept(MediaType.APPLICATION_STREAM_JSON)), accountHandler::hello)
-            .andRoute(GET("/getUser").and(accept(MediaType.APPLICATION_JSON)), accountHandler::getUsers);
+            .andRoute(GET("/getUser/{id}").and(accept(MediaType.APPLICATION_JSON)), accountHandler::getUsers)
+            .andRoute(POST("/addUser").and(accept(MediaType.APPLICATION_JSON)), accountHandler::putUsers);
     }
 }

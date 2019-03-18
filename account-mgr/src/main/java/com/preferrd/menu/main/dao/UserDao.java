@@ -9,5 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 
     User getNameById(String Id);
 
+    void addUser(User user);
+
 
 }

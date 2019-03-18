@@ -6,5 +6,8 @@
             resultType="com.preferrd.menu.main.model.User">
 		SELECT * FROM test WHERE id = #{id}
 	</select>
+    <insert id="addUser" parameterType="com.preferrd.menu.main.model.User">
+		INSERT INTO test VALUES (#{id}, #{name})
+	</insert>
 
 </mapper>
