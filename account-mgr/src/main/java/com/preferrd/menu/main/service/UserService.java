@@ -4,6 +4,6 @@ import com.preferrd.menu.main.model.User;
 
 public interface UserService {
 
-    User getNameById(User user);
+    User getNameById(String id);
 
 }
