@@ -53,3 +53,7 @@ redis:lgy
        http://www.cnblogs.com/likehua/p/3999538.html
   6. spring boot 中使用netty做web服务器
   	   https://blog.csdn.net/xx753277/article/details/84935718
+  7. spring boot响应式学习资料
+  		https://www.cnblogs.com/xwjie/p/8995150.html
+  		http://www.cnblogs.com/skyme/p/8976866.html
+  		https://www.bysocket.com/archives/1987/1987

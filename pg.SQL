@@ -2,7 +2,7 @@
 -- varchar 长度可变，拥有更好的看，空间效率，取出的字符不需要处理多余的空字符
 
 --------------------------------account
-create table acccount(
+create table account(
 	account_id char(16),
 	user_name varchar not null,
 	password varchar not null,
