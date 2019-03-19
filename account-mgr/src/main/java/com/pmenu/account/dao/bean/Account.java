@@ -1,4 +1,4 @@
-package com.preferrd.menu.dao.bean;
+package com.pmenu.account.dao.bean;
 
 import lombok.Data;
 @Data

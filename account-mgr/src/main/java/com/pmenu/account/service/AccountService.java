@@ -1,8 +1,8 @@
-package com.preferrd.menu.service;
+package com.pmenu.account.service;
 
 import java.util.Set;
 
-import com.preferrd.menu.dao.bean.Account;
+import com.pmenu.account.dao.bean.Account;
 
 public interface AccountService {
 	

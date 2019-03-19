@@ -1,4 +1,4 @@
-package com.preferrd.menu.handler;
+package com.pmenu.account.handler;
 
 import static java.time.Duration.ofMillis;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import com.preferrd.menu.dao.bean.Account;
-import com.preferrd.menu.service.AccountService;
+import com.pmenu.account.dao.bean.Account;
+import com.pmenu.account.service.AccountService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

@@ -1,4 +1,4 @@
-package com.preferrd.menu.service.impl;
+package com.pmenu.account.service.impl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.preferrd.menu.dao.bean.Account;
-import com.preferrd.menu.mapper.AccountMapper;
-import com.preferrd.menu.service.AccountService;
+import com.pmenu.account.dao.bean.Account;
+import com.pmenu.account.mapper.AccountMapper;
+import com.pmenu.account.service.AccountService;
 
 @Service
 public class AccountServiceImpl implements AccountService {

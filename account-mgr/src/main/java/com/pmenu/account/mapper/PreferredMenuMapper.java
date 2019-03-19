@@ -1,4 +1,4 @@
-package com.preferrd.menu.mapper;
+package com.pmenu.account.mapper;
 
 import java.util.List;
 import java.util.Set;
