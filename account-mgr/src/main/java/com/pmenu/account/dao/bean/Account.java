@@ -1,5 +1,6 @@
 package com.pmenu.account.dao.bean;
 
+import commoncom.pmenu.comon.api.Entity;
 import lombok.Data;
 @Data
 public class Account implements Entity{

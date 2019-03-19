@@ -1,4 +1,4 @@
-package com.pmenu.account.mapper;
+package commoncom.pmenu.comon.api;
 
 import java.util.List;
 import java.util.Set;

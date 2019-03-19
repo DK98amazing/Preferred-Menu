@@ -8,7 +8,9 @@
 
     <modules>
         <module>preferred-menu-parent</module>
-        <module>account-mgr</module>
+        <module>common</module>
+		<module>account-mgr</module>
+		<module>menu-mgr</module>
     </modules>
 
 

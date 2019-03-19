@@ -1,4 +1,4 @@
-package com.pmenu.account.handler;
+package commoncom.pmenu.comon.api;
 
 public interface PreferredMenuHandler {
 
