@@ -5,15 +5,15 @@ import java.util.Set;
 
 public interface PreferredMenuDao<T> {
 
-    T add(T t);
+	Integer add(T t);
 
     Integer addList(List<T> tList);
 
-    T remove(T t);
+    Integer remove(T t);
 
     Integer removeList(List<T> tList);
 
-    T update(String key);
+    Integer update(String key);
 
     Integer updateAll();
 

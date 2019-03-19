@@ -4,7 +4,7 @@
 <mapper namespace="com.preferrd.menu.dao.AccountDao">
     <select id="select" parameterType="java.lang.String"
             resultType="com.preferrd.menu.model.Account">
-		SELECT * FROM account WHERE "accountId" = #{accountId}
+		SELECT * FROM account WHERE "accountid" = #{accountId}
 	</select>
     <insert id="add" parameterType="com.preferrd.menu.model.Account">
 		INSERT INTO account VALUES (#{accountId}, #{userName}, #{password}, #{email}, #{description}, #{phone}, #{cardId}, #{realName})

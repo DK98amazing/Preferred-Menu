@@ -6,6 +6,6 @@ public interface AccountService {
 
     Account getNameById(String id);
 
-    void addUser(Account account);
+    Integer addUser(Account account);
 
 }
