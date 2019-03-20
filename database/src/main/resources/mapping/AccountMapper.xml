@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.preferrd.menu.database.dao.AccountMapper">
+    <resultMap id="BaseResultMap" type="com.preferrd.menu.database.model.Account">
+        <id column="accountId" jdbcType="VARCHAR" property="accountid"/>
+        <result column="userName" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="cardId" jdbcType="VARCHAR" property="cardid"/>
+        <result column="realName" jdbcType="VARCHAR" property="realname"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        accountId, userName, password, email, description, phone, cardId, realName
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap"
+            resultType="com.preferrd.menu.database.model.Account">
+        select
+        <include refid="Base_Column_List"/>
+        from *
+        where "accountId" = #{accountid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from account
+        where accountId = #{accountid,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.preferrd.menu.database.model.Account">
+        insert into account (accountId, userName, password,
+        email, description, phone,
+        cardId, realName)
+        values (#{accountid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        #{email,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+        #{cardid,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.preferrd.menu.database.model.Account">
+        insert into account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountid != null">
+                accountId,
+            </if>
+            <if test="username != null">
+                userName,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="cardid != null">
+                cardId,
+            </if>
+            <if test="realname != null">
+                realName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accountid != null">
+                #{accountid,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="cardid != null">
+                #{cardid,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                #{realname,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.preferrd.menu.database.model.Account">
+        update account
+        <set>
+            <if test="username != null">
+                userName = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="cardid != null">
+                cardId = #{cardid,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                realName = #{realname,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where accountId = #{accountid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.preferrd.menu.database.model.Account">
+        update account
+        set userName = #{username,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=VARCHAR},
+        cardId = #{cardid,jdbcType=VARCHAR},
+        realName = #{realname,jdbcType=VARCHAR}
+        where accountId = #{accountid,jdbcType=VARCHAR}
+    </update>
+</mapper>

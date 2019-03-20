@@ -10,6 +10,7 @@
         <module>preferred-menu-parent</module>
         <module>account-mgr</module>
         <module>menu-mgr</module>
+        <module>database</module>
     </modules>
 
 
