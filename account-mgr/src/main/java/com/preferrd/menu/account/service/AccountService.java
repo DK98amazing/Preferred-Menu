@@ -12,4 +12,6 @@ public interface AccountService {
     Integer addAccount(Account account);
 
     Integer deleteAccount(String id);
+
+    Integer updateAccount(Account account);
 }

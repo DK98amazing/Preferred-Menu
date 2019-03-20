@@ -7,6 +7,7 @@ import com.preferrd.menu.database.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,12 +52,47 @@ public class AccountHandler {
     }
 
     @PostMapping("addAccount")
-    Integer addAccount(@RequestBody Account account) {
-        return accountService.addAccount(account);
+    ModelAndView addAccount(@RequestBody Account account) {
+        ModelAndView modelAndView = new ModelAndView();
+        int result = accountService.addAccount(account);
+        if (result == 1) {
+            modelAndView.addObject("result", result);
+            modelAndView.setViewName("redirect:/rest/getAccount?accountId=" + account.getAccountId());
+            return modelAndView;
+        } else {
+            throw new IllegalStateException("insert failed");
+        }
     }
 
     @DeleteMapping("deleteAccount/{accountId}")
-    Integer deleteAccount(@PathVariable(value = "accountId", required = false) String accountId) {
-        return accountService.deleteAccount(accountId);
+    String deleteAccount(@PathVariable(value = "accountId", required = false) String accountId) {
+        int result = accountService.deleteAccount(accountId);
+        if (result == 1) {
+            return "accountId: " + accountId;
+        } else {
+            throw new IllegalStateException("delete failed");
+        }
+    }
+
+    @PostMapping("updateAccount")
+    ModelAndView updateAccount(@RequestBody Account account) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (null == account.getUserName() && null == account.getCardId()
+                && null == account.getDescription() && null == account.getEmail()
+                && null == account.getPassword() && null == account.getPhone()
+                && null == account.getRealName()) {
+            modelAndView.addObject("result", 1);
+            modelAndView.setViewName("redirect:/rest/getAccount?accountId=" + account.getAccountId());
+            return modelAndView;
+        } else {
+            int result = accountService.updateAccount(account);
+            if (result == 1) {
+                modelAndView.addObject("result", result);
+                modelAndView.setViewName("redirect:/rest/getAccount?accountId=" + account.getAccountId());
+                return modelAndView;
+            } else {
+                throw new IllegalStateException("update failed");
+            }
+        }
     }
 }

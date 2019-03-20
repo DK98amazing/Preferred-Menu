@@ -31,4 +31,9 @@ public class AccountServiceImpl implements AccountService {
     public Integer deleteAccount(String id) {
         return accountMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public Integer updateAccount(Account account) {
+        return accountMapper.updateByPrimaryKeySelective(account);
+    }
 }
