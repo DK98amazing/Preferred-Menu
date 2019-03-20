@@ -2,128 +2,130 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.preferrd.menu.database.dao.AccountMapper">
     <resultMap id="BaseResultMap" type="com.preferrd.menu.database.model.Account">
-        <id column="accountId" jdbcType="VARCHAR" property="accountid"/>
-        <result column="userName" jdbcType="VARCHAR" property="username"/>
+        <id column="account_id" jdbcType="CHAR" property="accountId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
-        <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
-        <result column="phone" jdbcType="VARCHAR" property="phone"/>
-        <result column="cardId" jdbcType="VARCHAR" property="cardid"/>
-        <result column="realName" jdbcType="VARCHAR" property="realname"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="phone" jdbcType="CHAR" property="phone"/>
+        <result column="card_id" jdbcType="CHAR" property="cardId"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
     </resultMap>
     <sql id="Base_Column_List">
-        accountId, userName, password, email, description, phone, cardId, realName
+        account_id, user_name, password, description, email, phone, card_id, real_name
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap"
-            resultType="com.preferrd.menu.database.model.Account">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from *
-        where "accountId" = #{accountid,jdbcType=VARCHAR}
+        from account
+        where 1=1
+        <if test="null != accountId">
+            AND account_id = #{accountId, jdbcType=CHAR}
+        </if>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from account
-        where accountId = #{accountid,jdbcType=VARCHAR}
+        where account_id = #{accountId,jdbcType=CHAR}
     </delete>
     <insert id="insert" parameterType="com.preferrd.menu.database.model.Account">
-        insert into account (accountId, userName, password,
-        email, description, phone,
-        cardId, realName)
-        values (#{accountid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-        #{email,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
-        #{cardid,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR})
+        insert into account (account_id, user_name, password,
+        description, email, phone,
+        card_id, real_name)
+        values (#{accountId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        #{description,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR},
+        #{cardId,jdbcType=CHAR}, #{realName,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.preferrd.menu.database.model.Account">
         insert into account
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="accountid != null">
-                accountId,
+            <if test="accountId != null">
+                account_id,
             </if>
-            <if test="username != null">
-                userName,
+            <if test="userName != null">
+                user_name,
             </if>
             <if test="password != null">
                 password,
             </if>
-            <if test="email != null">
-                email,
-            </if>
             <if test="description != null">
                 description,
+            </if>
+            <if test="email != null">
+                email,
             </if>
             <if test="phone != null">
                 phone,
             </if>
-            <if test="cardid != null">
-                cardId,
+            <if test="cardId != null">
+                card_id,
             </if>
-            <if test="realname != null">
-                realName,
+            <if test="realName != null">
+                real_name,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="accountid != null">
-                #{accountid,jdbcType=VARCHAR},
+            <if test="accountId != null">
+                #{accountId,jdbcType=CHAR},
             </if>
-            <if test="username != null">
-                #{username,jdbcType=VARCHAR},
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 #{password,jdbcType=VARCHAR},
             </if>
-            <if test="email != null">
-                #{email,jdbcType=VARCHAR},
-            </if>
             <if test="description != null">
                 #{description,jdbcType=VARCHAR},
             </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
             <if test="phone != null">
-                #{phone,jdbcType=VARCHAR},
+                #{phone,jdbcType=CHAR},
             </if>
-            <if test="cardid != null">
-                #{cardid,jdbcType=VARCHAR},
+            <if test="cardId != null">
+                #{cardId,jdbcType=CHAR},
             </if>
-            <if test="realname != null">
-                #{realname,jdbcType=VARCHAR},
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.preferrd.menu.database.model.Account">
         update account
         <set>
-            <if test="username != null">
-                userName = #{username,jdbcType=VARCHAR},
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 password = #{password,jdbcType=VARCHAR},
             </if>
-            <if test="email != null">
-                email = #{email,jdbcType=VARCHAR},
-            </if>
             <if test="description != null">
                 description = #{description,jdbcType=VARCHAR},
             </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
             <if test="phone != null">
-                phone = #{phone,jdbcType=VARCHAR},
+                phone = #{phone,jdbcType=CHAR},
             </if>
-            <if test="cardid != null">
-                cardId = #{cardid,jdbcType=VARCHAR},
+            <if test="cardId != null">
+                card_id = #{cardId,jdbcType=CHAR},
             </if>
-            <if test="realname != null">
-                realName = #{realname,jdbcType=VARCHAR},
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
             </if>
         </set>
-        where accountId = #{accountid,jdbcType=VARCHAR}
+        where account_id = #{accountId,jdbcType=CHAR}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.preferrd.menu.database.model.Account">
         update account
-        set userName = #{username,jdbcType=VARCHAR},
+        set user_name = #{userName,jdbcType=VARCHAR},
         password = #{password,jdbcType=VARCHAR},
-        email = #{email,jdbcType=VARCHAR},
         description = #{description,jdbcType=VARCHAR},
-        phone = #{phone,jdbcType=VARCHAR},
-        cardId = #{cardid,jdbcType=VARCHAR},
-        realName = #{realname,jdbcType=VARCHAR}
-        where accountId = #{accountid,jdbcType=VARCHAR}
+        email = #{email,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=CHAR},
+        card_id = #{cardId,jdbcType=CHAR},
+        real_name = #{realName,jdbcType=VARCHAR}
+        where account_id = #{accountId,jdbcType=CHAR}
     </update>
 </mapper>

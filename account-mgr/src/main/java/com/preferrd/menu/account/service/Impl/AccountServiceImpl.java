@@ -7,19 +7,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service public class AccountServiceImpl implements AccountService {
+import java.util.List;
 
-    @Autowired private AccountMapper accountMapper;
+@Service
+public class AccountServiceImpl implements AccountService {
 
-    @Transactional @Override public Account getAccountById(String id) {
+    @Autowired
+    private AccountMapper accountMapper;
+
+    @Transactional
+    @Override
+    public List<Account> getAccountById(String id) {
         return accountMapper.selectByPrimaryKey(id);
     }
 
-    @Transactional @Override public Integer addAccount(Account account) {
+    @Transactional
+    @Override
+    public Integer addAccount(Account account) {
         return accountMapper.insert(account);
     }
 
-    //    @Transactional @Override public List<Account> getAllAccount() {
-    //        return accountMapper.selectAll();
-    //    }
+    @Override
+    public Integer deleteAccount(String id) {
+        return accountMapper.deleteByPrimaryKey(id);
+    }
 }
