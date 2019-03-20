@@ -26,7 +26,11 @@ public class AccountServiceImpl implements AccountService {
 	@Transactional
 	@Override
 	public Account registerAccount(Account account) {
-		return accountMapper.add(account);
+		if(accountMapper.add(account)==1) {
+			return account;
+		}
+		// TODO throw exception
+		return null;
 	}
 
 	@Transactional
