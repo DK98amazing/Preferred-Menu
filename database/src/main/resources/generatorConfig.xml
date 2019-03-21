@@ -21,7 +21,7 @@
 
         <!-- 数据库的相关配置 -->
         <jdbcConnection driverClass="org.postgresql.Driver"
-                        connectionURL="jdbc:postgresql://127.0.0.1:5432/test?useSSL=false" userId="postgres"
+                        connectionURL="jdbc:postgresql://127.0.0.1:5432/postgres?useSSL=false" userId="postgres"
                         password="123456"/>
         <javaTypeResolver>
             <!-- This property is used to specify whether MyBatis Generator should
@@ -43,7 +43,16 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 相关表的配置 -->
-        <table tableName="account" domainObjectName="Account" enableCountByExample="false"
+        <!--<table tableName="account" domainObjectName="Account" enableCountByExample="false"-->
+        <!--enableUpdateByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table tableName="account_role" domainObjectName="Role" enableCountByExample="false"-->
+        <!--enableUpdateByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table tableName="account_authority" domainObjectName="Authority" enableCountByExample="false"-->
+        <!--enableUpdateByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <table tableName="role_authority" domainObjectName="RoleAuthority" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
     </context>

@@ -10,9 +10,10 @@
         <result column="phone" jdbcType="CHAR" property="phone"/>
         <result column="card_id" jdbcType="CHAR" property="cardId"/>
         <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="role_id" jdbcType="CHAR" property="roleId"/>
     </resultMap>
     <sql id="Base_Column_List">
-        account_id, user_name, password, description, email, phone, card_id, real_name
+        account_id, user_name, password, description, email, phone, card_id, real_name, role_id
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -30,10 +31,10 @@
     <insert id="insert" parameterType="com.preferrd.menu.database.model.Account">
         insert into account (account_id, user_name, password,
         description, email, phone,
-        card_id, real_name)
+        card_id, real_name, role_id)
         values (#{accountId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
         #{description,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR},
-        #{cardId,jdbcType=CHAR}, #{realName,jdbcType=VARCHAR})
+        #{cardId,jdbcType=CHAR}, #{realName,jdbcType=VARCHAR}, #{roleId,jdbcType=CHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.preferrd.menu.database.model.Account">
         insert into account
@@ -62,6 +63,9 @@
             <if test="realName != null">
                 real_name,
             </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="accountId != null">
@@ -87,6 +91,9 @@
             </if>
             <if test="realName != null">
                 #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=CHAR},
             </if>
         </trim>
     </insert>
@@ -114,6 +121,9 @@
             <if test="realName != null">
                 real_name = #{realName,jdbcType=VARCHAR},
             </if>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=CHAR},
+            </if>
         </set>
         where account_id = #{accountId,jdbcType=CHAR}
     </update>
@@ -125,7 +135,8 @@
         email = #{email,jdbcType=VARCHAR},
         phone = #{phone,jdbcType=CHAR},
         card_id = #{cardId,jdbcType=CHAR},
-        real_name = #{realName,jdbcType=VARCHAR}
+        real_name = #{realName,jdbcType=VARCHAR},
+        role_id = #{roleId,jdbcType=CHAR}
         where account_id = #{accountId,jdbcType=CHAR}
     </update>
 </mapper>

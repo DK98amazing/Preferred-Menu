@@ -1,6 +1,9 @@
 package com.preferrd.menu.account.shiro;
 
 import com.preferrd.menu.account.service.AccountService;
+import com.preferrd.menu.account.service.AuthorityService;
+import com.preferrd.menu.account.service.RoleAuthorityKeyService;
+import com.preferrd.menu.account.service.RoleService;
 import com.preferrd.menu.database.model.Account;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
@@ -19,6 +22,12 @@ import java.util.Arrays;
 public class MyShiroRealm extends AuthorizingRealm {
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private AuthorityService authorityService;
+    @Autowired
+    private RoleAuthorityKeyService roleAuthorityKeyService;
 
     //角色权限和对应权限添加
     @Override
@@ -28,17 +37,18 @@ public class MyShiroRealm extends AuthorizingRealm {
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         Account account = accountService.getAccountById(accountId).get(0);
-        simpleAuthorizationInfo.addRole(account.getRoleid().toString());
-        for (SysPermission sysPermission : loginService.findPermissionByAccount(account)) {
-            simpleAuthorizationInfo.addStringPermission(sysPermission.getPermission());
-        }
+        String roleId = account.getRoleId();
+        String roleName = roleService.getRoleName(roleId).getRoleName();
+        simpleAuthorizationInfo.addRole(roleName);
+        String authorityId = roleAuthorityKeyService.getRoleAuthorityKey(roleId).getAuthorityId();
+        simpleAuthorizationInfo.addStringPermission(authorityService.getAuthority(authorityId).getPermission());
         return simpleAuthorizationInfo;
     }
 
     //用户认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
-        throws AuthenticationException {
+            throws AuthenticationException {
         //加这一步的目的是在Post请求的时候会先进认证，然后再到请求
         if (authenticationToken.getPrincipal() == null) {
             return null;
@@ -52,8 +62,6 @@ public class MyShiroRealm extends AuthorizingRealm {
             throw new AccountException("User does not exist!");
         } else if (!Arrays.equals(pwd, account.getPassword().toCharArray())) {
             throw new AccountException("The username or password is incorrect!");
-        } else if (account.getStatus() == 2) {
-            throw new DisabledAccountException("Account has been banned from login!");
         } else {
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             return new SimpleAuthenticationInfo(account, account.getPassword(), getName());

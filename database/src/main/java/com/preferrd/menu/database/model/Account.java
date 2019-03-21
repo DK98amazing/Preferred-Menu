@@ -19,6 +19,8 @@ public class Account implements Serializable {
 
     private String realName;
 
+    private String roleId;
+
     private static final long serialVersionUID = 1L;
 
     public String getAccountId() {
@@ -85,6 +87,14 @@ public class Account implements Serializable {
         this.realName = realName == null ? null : realName.trim();
     }
 
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId == null ? null : roleId.trim();
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -98,13 +108,14 @@ public class Account implements Serializable {
         }
         Account other = (Account) that;
         return (this.getAccountId() == null ? other.getAccountId() == null : this.getAccountId().equals(other.getAccountId()))
-                && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
-                && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-                && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
-                && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
-                && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-                && (this.getCardId() == null ? other.getCardId() == null : this.getCardId().equals(other.getCardId()))
-                && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()));
+            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
+            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
+            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
+            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
+            && (this.getCardId() == null ? other.getCardId() == null : this.getCardId().equals(other.getCardId()))
+            && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
+            && (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()));
     }
 
     @Override
@@ -119,6 +130,7 @@ public class Account implements Serializable {
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         result = prime * result + ((getCardId() == null) ? 0 : getCardId().hashCode());
         result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
+        result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
         return result;
     }
 
@@ -136,6 +148,7 @@ public class Account implements Serializable {
         sb.append(", phone=").append(phone);
         sb.append(", cardId=").append(cardId);
         sb.append(", realName=").append(realName);
+        sb.append(", roleId=").append(roleId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

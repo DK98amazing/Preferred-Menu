@@ -54,13 +54,13 @@ public class AccountHandler {
 
     @GetMapping("/getAccount")
     List<Account> getUserById(@RequestParam(value = "accountId",
-                                            required = false) String accountId) {
+            required = false) String accountId) {
         return accountService.getAccountById(accountId);
     }
 
     @GetMapping("/getAccount/{accountId}")
     List<Account> getUserById2(@PathVariable(value = "accountId",
-                                             required = false) String accountId) {
+            required = false) String accountId) {
         LOG.info(accountId);
         return accountService.getAccountById(accountId);
     }
@@ -80,7 +80,7 @@ public class AccountHandler {
 
     @DeleteMapping("deleteAccount/{accountId}")
     String deleteAccount(@PathVariable(value = "accountId",
-                                       required = false) String accountId) {
+            required = false) String accountId) {
         int result = accountService.deleteAccount(accountId);
         if (result == 1) {
             return "accountId: " + accountId;
@@ -93,8 +93,8 @@ public class AccountHandler {
     ModelAndView updateAccount(@RequestBody Account account) {
         ModelAndView modelAndView = new ModelAndView();
         if (null == account.getUserName() && null == account.getCardId() && null == account.getDescription()
-            && null == account.getEmail() && null == account.getPassword() && null == account.getPhone()
-            && null == account.getRealName()) {
+                && null == account.getEmail() && null == account.getPassword() && null == account.getPhone()
+                && null == account.getRealName()) {
             modelAndView.addObject("result", 1);
             modelAndView.setViewName("redirect:/rest/getAccount?accountId=" + account.getAccountId());
             return modelAndView;
@@ -122,7 +122,7 @@ public class AccountHandler {
         //添加用户认证信息
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken =
-            new UsernamePasswordToken(map.get("username").toString(), map.get("password").toString());
+                new UsernamePasswordToken(map.get("username").toString(), map.get("password").toString());
         usernamePasswordToken.setRememberMe(true);
         Session session = subject.getSession();
         //设置过期时间为10小时
@@ -146,5 +146,11 @@ public class AccountHandler {
     @RequestMapping(value = "/logout")
     public String logout() {
         return "logout";
+    }
+
+    //登出
+    @RequestMapping(value = "/error")
+    public String error() {
+        return "error";
     }
 }
