@@ -4,6 +4,8 @@ package com.preferrd.menu.account.handler;
 
 import com.preferrd.menu.account.service.AccountService;
 import com.preferrd.menu.database.model.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/rest")
 public class AccountHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(AccountHandler.class);
     @Autowired
     private AccountService accountService;
 
@@ -48,6 +51,7 @@ public class AccountHandler {
     @GetMapping("/getAccount/{accountId}")
     List<Account> getUserById2(@PathVariable(value = "accountId",
             required = false) String accountId) {
+        LOG.info(accountId);
         return accountService.getAccountById(accountId);
     }
 
