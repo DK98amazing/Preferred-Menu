@@ -1,1 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pmenu.menu.mapper.DishesMapper">
+ 
+    <resultMap id="BaseResultMap" type="com.pmenu.menu.dao.bean.Dishes">
+        <result column="dishes_id" jdbcType="CHAR" property="dishesId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="price" jdbcType="NUMERIC" property="price" />
+        <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+        <result column="ingredient" jdbcType="VARCHAR" property="ingredient" />
+        <result column="tag" jdbcType="VARCHAR" property="tag" />
+        <result column="store_id" jdbcType="CHAR" property="storeId" />
+    </resultMap>
+ 
+     <sql id="Base_Column_List">
+        dishes_id, name, price, type_id, ingredient, tag, store_id
+    </sql>
+ 
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from dishes
+    </select>
+
+    <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from dishes where dishes_id = #{dishesId}
+    </select>
+ 
+    <insert id="add" parameterType="com.pmenu.menu.dao.bean.Dishes">
+        insert into dishes (dishes_id, name, price,type_id, ingredient, tag,store_id)
+        values (#{dishesId,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC},
+        #{typeId,jdbcType=VARCHAR}, #{ingredient,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR},
+        #{storeId,jdbcType=VARCHAR})
+    </insert>
+ 
+ 
+     <delete id="remove" parameterType="java.lang.String">
+        delete from dishes where dishes_id = #{dishesId,jdbcType=VARCHAR}
+    </delete>
+</mapper>

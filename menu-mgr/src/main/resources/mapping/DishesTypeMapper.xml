@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pmenu.menu.mapper.DishesTypeMapper">
+  <resultMap id="BaseResultMap" type="com.pmenu.menu.dao.bean.DishesType">
+    <id column="type_id" jdbcType="CHAR" property="typeId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    type_id, type_name, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dishes_type
+    where type_id = #{typeId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dishes_type
+    where type_id = #{typeId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.pmenu.menu.dao.bean.DishesType">
+    insert into dishes_type (type_id, type_name, description
+      )
+    values (#{typeId,jdbcType=CHAR}, #{typeName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pmenu.menu.dao.bean.DishesType">
+    insert into dishes_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="typeName != null">
+        type_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="typeId != null">
+        #{typeId,jdbcType=CHAR},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pmenu.menu.dao.bean.DishesType">
+    update dishes_type
+    <set>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where type_id = #{typeId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pmenu.menu.dao.bean.DishesType">
+    update dishes_type
+    set type_name = #{typeName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where type_id = #{typeId,jdbcType=CHAR}
+  </update>
+</mapper>

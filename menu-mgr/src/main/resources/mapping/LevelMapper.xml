@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pmenu.menu.mapper.LevelMapper">
+  <resultMap id="BaseResultMap" type="com.pmenu.menu.dao.bean.Level">
+    <id column="code" jdbcType="SMALLINT" property="code" />
+    <result column="cndisplay" jdbcType="VARCHAR" property="cndisplay" />
+    <result column="endisplay" jdbcType="VARCHAR" property="endisplay" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    code, cndisplay, endisplay, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from level
+    where code = #{code,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from level
+    where code = #{code,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.pmenu.menu.dao.bean.Level">
+    insert into level (code, cndisplay, endisplay, 
+      description)
+    values (#{code,jdbcType=SMALLINT}, #{cndisplay,jdbcType=VARCHAR}, #{endisplay,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pmenu.menu.dao.bean.Level">
+    insert into level
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        code,
+      </if>
+      <if test="cndisplay != null">
+        cndisplay,
+      </if>
+      <if test="endisplay != null">
+        endisplay,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=SMALLINT},
+      </if>
+      <if test="cndisplay != null">
+        #{cndisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="endisplay != null">
+        #{endisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pmenu.menu.dao.bean.Level">
+    update level
+    <set>
+      <if test="cndisplay != null">
+        cndisplay = #{cndisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="endisplay != null">
+        endisplay = #{endisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where code = #{code,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pmenu.menu.dao.bean.Level">
+    update level
+    set cndisplay = #{cndisplay,jdbcType=VARCHAR},
+      endisplay = #{endisplay,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where code = #{code,jdbcType=SMALLINT}
+  </update>
+</mapper>

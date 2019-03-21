@@ -2,30 +2,40 @@ package com.pmenu.menu.dao.bean;
 
 import java.io.Serializable;
 
-public class DishesType implements Serializable {
-    private String typeId;
+public class Level implements Serializable {
+    private Short code;
 
-    private String typeName;
+    private String cndisplay;
+
+    private String endisplay;
 
     private String description;
 
     private static final long serialVersionUID = 1L;
 
-    public String getTypeId() {
-        return typeId;
+    public Short getCode() {
+        return code;
     }
 
-    public DishesType setTypeId(String typeId) {
-        this.typeId = typeId == null ? null : typeId.trim();
+    public Level setCode(Short code) {
+        this.code = code;
         return this;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getCndisplay() {
+        return cndisplay;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName == null ? null : typeName.trim();
+    public void setCndisplay(String cndisplay) {
+        this.cndisplay = cndisplay == null ? null : cndisplay.trim();
+    }
+
+    public String getEndisplay() {
+        return endisplay;
+    }
+
+    public void setEndisplay(String endisplay) {
+        this.endisplay = endisplay == null ? null : endisplay.trim();
     }
 
     public String getDescription() {
@@ -47,9 +57,10 @@ public class DishesType implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        DishesType other = (DishesType) that;
-        return (this.getTypeId() == null ? other.getTypeId() == null : this.getTypeId().equals(other.getTypeId()))
-            && (this.getTypeName() == null ? other.getTypeName() == null : this.getTypeName().equals(other.getTypeName()))
+        Level other = (Level) that;
+        return (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
+            && (this.getCndisplay() == null ? other.getCndisplay() == null : this.getCndisplay().equals(other.getCndisplay()))
+            && (this.getEndisplay() == null ? other.getEndisplay() == null : this.getEndisplay().equals(other.getEndisplay()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()));
     }
 
@@ -57,8 +68,9 @@ public class DishesType implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getTypeId() == null) ? 0 : getTypeId().hashCode());
-        result = prime * result + ((getTypeName() == null) ? 0 : getTypeName().hashCode());
+        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
+        result = prime * result + ((getCndisplay() == null) ? 0 : getCndisplay().hashCode());
+        result = prime * result + ((getEndisplay() == null) ? 0 : getEndisplay().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         return result;
     }
@@ -69,8 +81,9 @@ public class DishesType implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", typeId=").append(typeId);
-        sb.append(", typeName=").append(typeName);
+        sb.append(", code=").append(code);
+        sb.append(", cndisplay=").append(cndisplay);
+        sb.append(", endisplay=").append(endisplay);
         sb.append(", description=").append(description);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

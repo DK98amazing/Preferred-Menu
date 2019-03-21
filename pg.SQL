@@ -3,14 +3,14 @@
 
 --------------------------------account
 create table account(
-	account_id char(16),
+	account_id char(36),
 	user_name varchar not null,
 	password varchar not null,
 	description varchar null,
 	email varchar null,
 	phone char(11) not null unique,
 	card_id char(18) null unique,
-	reall_name varchar(16) null,
+	reall_name varchar(36) null,
 	primary key(account_id)
 );
 
@@ -25,7 +25,7 @@ select * from account where accont_id in (...);
 -- 为了减小误差,数据库中存放金额一般存放最低单位,人民币为分,数据类型使用numeric(10)
 -- 表示精度为10(最多10位有效数字,最大额度:999999999分),标度为0
 create table account_ext(
-	account_id char(16),
+	account_id char(36),
 	location varchar not null,
 	breakfast_upper numeric(10) default 20,
 	breakfast_lower numeric(10) default 1,
@@ -37,7 +37,7 @@ create table account_ext(
 	age smallint not null,
 	sex boolean not null,
 	weight smallint not null,
-	healthy_id char(16) not null,
+	healthy_id char(36) not null,
 	primary key(account_id)
 )
 
@@ -47,7 +47,7 @@ create index account_ext_index on account_ext(account_id,healthy_id);
 -----------------------------------
 
 create table taste(
-	account_id char(16) not null,
+	account_id char(36) not null,
 	sour smallint default 3,
 	sweet smallint default 3,
 	bitter smallint default 3,
@@ -78,7 +78,7 @@ create table level(
 ------------------------------------
 
 create table healthy_temp(
-	healthy_id char(16) ,
+	healthy_id char(36) ,
 	code smallint not null,
 	description varchar,
 	primary key(healthy_id)
@@ -88,7 +88,7 @@ create table healthy_temp(
 --------------------------------------
 
 create table dishes_type(
-	type_id char(16),
+	type_id char(36),
 	type_name varchar not null,
 	description varchar,
 	primary key(type_id)
@@ -98,7 +98,7 @@ create table dishes_type(
 
 
 create table store(
-	store_id char(16),
+	store_id char(36),
 	location varchar not null,
 	name varchar not null,
 	primary key(store_id)
@@ -109,13 +109,13 @@ create table store(
 
 --------------------------------------
 create table dishes(
-	dishes_id char(16),
+	dishes_id char(36),
 	name varchar not null,
 	price numeric(10) not null,
-	type_id char(16) not null,
+	type_id char(36) not null,
 	ingredient varchar not null,
-	tage varchar not null,
-	store_id char(16) not null
+	tag varchar not null,
+	store_id char(36) not null,
 	primary key(dishes_id)
 )
 
