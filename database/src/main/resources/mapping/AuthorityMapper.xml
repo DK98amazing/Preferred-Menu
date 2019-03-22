@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.preferrd.menu.database.dao.AuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.preferrd.menu.database.model.Authority">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="authority_name" jdbcType="VARCHAR" property="authorityName" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, authority_name, icon, uri, permission
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account_authority
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from account_authority
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.preferrd.menu.database.model.Authority">
+    insert into account_authority (id, authority_name, icon, 
+      uri, permission)
+    values (#{id,jdbcType=CHAR}, #{authorityName,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{uri,jdbcType=VARCHAR}, #{permission,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.preferrd.menu.database.model.Authority">
+    insert into account_authority
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="authorityName != null">
+        authority_name,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="uri != null">
+        uri,
+      </if>
+      <if test="permission != null">
+        permission,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="authorityName != null">
+        #{authorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        #{permission,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.preferrd.menu.database.model.Authority">
+    update account_authority
+    <set>
+      <if test="authorityName != null">
+        authority_name = #{authorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        uri = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.preferrd.menu.database.model.Authority">
+    update account_authority
+    set authority_name = #{authorityName,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      uri = #{uri,jdbcType=VARCHAR},
+      permission = #{permission,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>
