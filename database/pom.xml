@@ -83,7 +83,7 @@
               注意：如果没有这个，它会自动搜索resources下是否有mapper.xml文件，
               如果没有就会报org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.pet.mapper.PetMapper.selectByPrimaryKey-->
             <resource>
-                <directory>src/main/java</directory>
+                <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.xml</include>
                 </includes>
