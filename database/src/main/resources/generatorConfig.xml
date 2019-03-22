@@ -43,15 +43,15 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 相关表的配置 -->
-        <!--<table tableName="account" domainObjectName="Account" enableCountByExample="false"-->
-        <!--enableUpdateByExample="false"-->
-        <!--enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
-        <!--<table tableName="account_role" domainObjectName="Role" enableCountByExample="false"-->
-        <!--enableUpdateByExample="false"-->
-        <!--enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
-        <!--<table tableName="account_authority" domainObjectName="Authority" enableCountByExample="false"-->
-        <!--enableUpdateByExample="false"-->
-        <!--enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <table tableName="account" domainObjectName="Account" enableCountByExample="false"
+        enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="account_role" domainObjectName="Role" enableCountByExample="false"
+        enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="account_authority" domainObjectName="Authority" enableCountByExample="false"
+        enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
         <table tableName="role_authority" domainObjectName="RoleAuthority" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
