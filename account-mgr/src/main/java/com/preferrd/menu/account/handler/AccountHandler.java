@@ -112,7 +112,7 @@ public class AccountHandler {
         usernamePasswordToken.setRememberMe(true);
         Session session = subject.getSession();
         //设置过期时间为10小时
-        session.setTimeout(36000000);
+        session.setTimeout(60);
         //进行验证，这里可以捕获异常，然后返回对应信息
         try {
             subject.login(usernamePasswordToken);

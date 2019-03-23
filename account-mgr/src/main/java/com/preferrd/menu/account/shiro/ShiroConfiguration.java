@@ -1,10 +1,13 @@
 package com.preferrd.menu.account.shiro;
 
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
@@ -51,6 +54,8 @@ public class ShiroConfiguration {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
+        securityManager.setCacheManager(cacheManager());
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
     }
 
@@ -142,6 +147,37 @@ public class ShiroConfiguration {
             new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
+    }
+
+    /**
+     * cookie管理器;
+     *
+     * @return
+     */
+    @Bean
+    public CookieRememberMeManager rememberMeManager() {
+        //注入Shiro的记住我(CookieRememberMeManager)管理器
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        //rememberme cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位），通过以下代码可以获取
+        //KeyGenerator keygen = KeyGenerator.getInstance("AES");
+        //SecretKey deskey = keygen.generateKey();
+        //System.out.println(Base64.encodeToString(deskey.getEncoded()));
+        byte[] cipherKey = Base64.decode("wGiHplamyXlVB11UXWol8g==");
+        cookieRememberMeManager.setCipherKey(cipherKey);
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        return cookieRememberMeManager;
+    }
+
+    @Bean
+    public SimpleCookie rememberMeCookie() {
+        //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
+        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        //如果httyOnly设置为true，则客户端不会暴露给客户端脚本代码，使用HttpOnly cookie有助于减少某些类型的跨站点脚本攻击；
+        simpleCookie.setHttpOnly(true);
+        //记住我cookie生效时间,默认30天 ,单位秒：60 * 60 * 24 * 30
+        simpleCookie.setMaxAge(60);
+
+        return simpleCookie;
     }
 
     /**
