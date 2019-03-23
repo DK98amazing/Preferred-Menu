@@ -9,7 +9,6 @@ import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -36,7 +35,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         String accountId = (String) principalCollection.getPrimaryPrincipal();
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        Account account = accountService.getAccountById(accountId).get(0);
+        Account account = accountService.getAccountById(accountId);
         String roleId = account.getRoleId();
         String roleName = roleService.getRoleName(roleId).getRoleName();
         simpleAuthorizationInfo.addRole(roleName);
@@ -48,7 +47,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     //用户认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
-            throws AuthenticationException {
+        throws AuthenticationException {
         //加这一步的目的是在Post请求的时候会先进认证，然后再到请求
         if (authenticationToken.getPrincipal() == null) {
             return null;
@@ -56,7 +55,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         //获取用户信息
         char[] pwd = (char[]) authenticationToken.getCredentials();
         String accountId = authenticationToken.getPrincipal().toString();
-        Account account = accountService.getAccountById(accountId).get(0);
+        Account account = accountService.getAccountById(accountId);
         if (account == null) {
             //这里返回后会报出对应异常
             throw new AccountException("User does not exist!");

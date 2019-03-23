@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AccountService {
 
-    List<Account> getAccountById(String id);
+    Account getAccountById(String id);
 
     Integer addAccount(Account account);
 

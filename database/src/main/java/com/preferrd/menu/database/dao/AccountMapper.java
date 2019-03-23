@@ -2,8 +2,7 @@ package com.preferrd.menu.database.dao;
 
 import com.preferrd.menu.database.model.Account;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface AccountMapper {
@@ -13,7 +12,7 @@ public interface AccountMapper {
 
     int insertSelective(Account record);
 
-    List<Account> selectByPrimaryKey(String accountId);
+    Account selectByPrimaryKey(@Param("accountId") String accountId);
 
     int updateByPrimaryKeySelective(Account record);
 

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +29,7 @@ import java.util.Map;
  * @author liguoyao
  */
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/account")
 public class AccountHandler {
     private static final Logger LOG = LoggerFactory.getLogger(AccountHandler.class);
     @Autowired
@@ -40,7 +39,7 @@ public class AccountHandler {
     ModelAndView home1() {
         ModelAndView mv = new ModelAndView();
         // request url不变
-        mv.setViewName("forward:/rest/cities");
+        mv.setViewName("forward:/account/cities");
         return mv;
     }
 
@@ -48,39 +47,26 @@ public class AccountHandler {
     ModelAndView home2() {
         ModelAndView mv = new ModelAndView();
         // request url改变
-        mv.setViewName("redirect:/rest/cities");
+        mv.setViewName("redirect:/account/cities");
         return mv;
     }
 
     @GetMapping("/getAccount")
-    List<Account> getUserById(@RequestParam(value = "accountId",
-            required = false) String accountId) {
+    Account getUserById(@RequestParam(value = "accountId",
+                                      required = false) String accountId) {
         return accountService.getAccountById(accountId);
     }
 
     @GetMapping("/getAccount/{accountId}")
-    List<Account> getUserById2(@PathVariable(value = "accountId",
-            required = false) String accountId) {
+    Account getUserById2(@PathVariable(value = "accountId",
+                                       required = false) String accountId) {
         LOG.info(accountId);
         return accountService.getAccountById(accountId);
     }
 
-    @PostMapping("addAccount")
-    ModelAndView addAccount(@RequestBody Account account) {
-        ModelAndView modelAndView = new ModelAndView();
-        int result = accountService.addAccount(account);
-        if (result == 1) {
-            modelAndView.addObject("result", result);
-            modelAndView.setViewName("redirect:/rest/getAccount?accountId=" + account.getAccountId());
-            return modelAndView;
-        } else {
-            throw new IllegalStateException("insert failed");
-        }
-    }
-
     @DeleteMapping("deleteAccount/{accountId}")
     String deleteAccount(@PathVariable(value = "accountId",
-            required = false) String accountId) {
+                                       required = false) String accountId) {
         int result = accountService.deleteAccount(accountId);
         if (result == 1) {
             return "accountId: " + accountId;
@@ -93,16 +79,16 @@ public class AccountHandler {
     ModelAndView updateAccount(@RequestBody Account account) {
         ModelAndView modelAndView = new ModelAndView();
         if (null == account.getUserName() && null == account.getCardId() && null == account.getDescription()
-                && null == account.getEmail() && null == account.getPassword() && null == account.getPhone()
-                && null == account.getRealName()) {
+            && null == account.getEmail() && null == account.getPassword() && null == account.getPhone()
+            && null == account.getRealName()) {
             modelAndView.addObject("result", 1);
-            modelAndView.setViewName("redirect:/rest/getAccount?accountId=" + account.getAccountId());
+            modelAndView.setViewName("redirect:/account/getAccount?accountId=" + account.getAccountId());
             return modelAndView;
         } else {
             int result = accountService.updateAccount(account);
             if (result == 1) {
                 modelAndView.addObject("result", result);
-                modelAndView.setViewName("redirect:/rest/getAccount?accountId=" + account.getAccountId());
+                modelAndView.setViewName("redirect:/account/getAccount?accountId=" + account.getAccountId());
                 return modelAndView;
             } else {
                 throw new IllegalStateException("update failed");
@@ -113,7 +99,7 @@ public class AccountHandler {
     //退出的时候是get请求，主要是用于退出
     @GetMapping(value = "/login")
     public String login() {
-        return "please login!";
+        return "login Page";
     }
 
     //post登录
@@ -122,7 +108,7 @@ public class AccountHandler {
         //添加用户认证信息
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken =
-                new UsernamePasswordToken(map.get("username").toString(), map.get("password").toString());
+            new UsernamePasswordToken(map.get("username").toString(), map.get("password").toString());
         usernamePasswordToken.setRememberMe(true);
         Session session = subject.getSession();
         //设置过期时间为10小时

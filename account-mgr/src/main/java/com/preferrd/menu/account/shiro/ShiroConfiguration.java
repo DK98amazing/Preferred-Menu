@@ -6,12 +6,12 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.crazycake.shiro.RedisCacheManager;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -26,17 +26,18 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //登出
-        filterChainDefinitionMap.put("/rest/logout", "logout");
+        filterChainDefinitionMap.put("/account/logout", "logout");
         //对所有用户认证
         //authc是要求登录，anon是可以匿名，user是配置记住我或认证通过可以访问
-        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/noAuth/addAccount", "anon");
+        filterChainDefinitionMap.put("/account/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         //登录
-        shiroFilterFactoryBean.setLoginUrl("/rest/login");
+        shiroFilterFactoryBean.setLoginUrl("/account/login");
         //首页
-        shiroFilterFactoryBean.setSuccessUrl("/rest/index");
+        shiroFilterFactoryBean.setSuccessUrl("/account/index");
         //错误页面，认证不通过跳转
-        shiroFilterFactoryBean.setUnauthorizedUrl("/rest/error");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/account/error");
         //自定义拦截器
         Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
         //限制同一帐号同时在线的个数。
@@ -65,7 +66,7 @@ public class ShiroConfiguration {
      *
      * @return
      */
-    public RedisCacheManager cacheManager() {
+    private RedisCacheManager cacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setRedisManager(redisManager());
         return redisCacheManager;
@@ -77,7 +78,7 @@ public class ShiroConfiguration {
      *
      * @return
      */
-    public RedisManager redisManager() {
+    private RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost("localhost:6379");
         redisManager.setTimeout(1800);// 配置缓存过期时间
@@ -138,7 +139,7 @@ public class ShiroConfiguration {
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor =
-                new AuthorizationAttributeSourceAdvisor();
+            new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
     }

@@ -17,7 +17,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public List<Account> getAccountById(String id) {
+    public Account getAccountById(String id) {
         return accountMapper.selectByPrimaryKey(id);
     }
 
