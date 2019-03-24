@@ -1,6 +1,7 @@
 package com.pmenu.menu.dao.bean;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class DishesType implements Serializable {
     private String typeId;
@@ -11,6 +12,10 @@ public class DishesType implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public DishesType() {
+    	this.typeId  = UUID.randomUUID().toString();
+	}
+    
     public String getTypeId() {
         return typeId;
     }

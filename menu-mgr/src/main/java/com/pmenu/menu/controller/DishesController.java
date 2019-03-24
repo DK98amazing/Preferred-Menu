@@ -5,12 +5,14 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.pmenu.menu.dao.bean.Dishes;
 import com.pmenu.menu.service.DishesService;
 
@@ -24,16 +26,20 @@ public class DishesController implements PreferredMenuHandler{
 	@Autowired
 	DishesService dishesService ;
 	
-    @GetMapping("/dishes") 
-    Set<Dishes> searchDishesByKey(@RequestParam(value = "searchKey",
-            required = false) String searchKey) {
+    @GetMapping("/dishes/{searchKey}") 
+    Set<Dishes> searchDishesByKey(@PathVariable(value="searchKey")  String searchKey) {
     	
 		return dishesService.listDishes(searchKey);
 	}
     
-    @DeleteMapping("/dishes") 
-    Integer deleteDishesById(@RequestParam(value = "dishesId",
-            required = false) String dishesId) throws PerferredMenuException {
+    @GetMapping("/list_dishes") 
+    Set<Dishes> searchAllDishes() {
+    	
+		return dishesService.listDishes("");
+	}
+    
+    @DeleteMapping("/dishes/{dishesId}") 
+    Integer deleteDishesById(@PathVariable  String dishesId) throws PerferredMenuException {
     	
 		return dishesService.removeDishes(dishesId);
 	}

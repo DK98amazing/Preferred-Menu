@@ -56,8 +56,7 @@ public class DishesServiceImpl implements DishesService {
 	@Transactional
 	@Override
 	public Integer updateDishes(Dishes dishes) throws PerferredMenuException {
-		// TODO Auto-generated method stub
-		return null;
+		return dishesMapper.update(dishes);
 	}
 
 }

@@ -27,8 +27,7 @@ public class LevelServiceImpl implements LevelService{
 
 	@Override
 	public Integer updateLevel(Level level) {
-		// TODO Auto-generated method stub
-		return null;
+		return levelMapper.update(level);
 	}
 
 

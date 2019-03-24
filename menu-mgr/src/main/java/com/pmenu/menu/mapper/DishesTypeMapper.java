@@ -1,8 +1,11 @@
 package com.pmenu.menu.mapper;
 
-import com.pmenu.menu.dao.bean.DishesType;
-import commoncom.pmenu.comon.api.PreferredMenuMapper;
+import org.apache.ibatis.annotations.Mapper;
 
+import com.pmenu.menu.dao.bean.DishesType;
+
+import commoncom.pmenu.comon.api.PreferredMenuMapper;
+@Mapper
 public interface DishesTypeMapper extends PreferredMenuMapper<DishesType>{
     int deleteByPrimaryKey(String typeId);
 

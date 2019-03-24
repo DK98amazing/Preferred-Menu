@@ -27,8 +27,7 @@ public class StoreServiceImpl implements StoreService{
 
 	@Override
 	public Integer updateStore(Store store) {
-		// TODO Auto-generated method stub
-		return null;
+		return storeMapper.update(store);
 	}
 
 	@Override

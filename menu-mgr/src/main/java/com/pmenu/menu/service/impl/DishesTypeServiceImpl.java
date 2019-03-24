@@ -27,8 +27,7 @@ public class DishesTypeServiceImpl implements DishesTypeService{
 
 	@Override
 	public Integer updateDishesType(DishesType dishesType) {
-		// TODO Auto-generated method stub
-		return null;
+		return dishesTypeMapper.update(dishesType);
 	}
 
 

@@ -1,8 +1,11 @@
 package com.pmenu.menu.mapper;
 
-import com.pmenu.menu.dao.bean.Store;
-import commoncom.pmenu.comon.api.PreferredMenuMapper;
+import org.apache.ibatis.annotations.Mapper;
 
+import com.pmenu.menu.dao.bean.Store;
+
+import commoncom.pmenu.comon.api.PreferredMenuMapper;
+@Mapper
 public interface StoreMapper extends PreferredMenuMapper<Store>{
     int deleteByPrimaryKey(String storeId);
 

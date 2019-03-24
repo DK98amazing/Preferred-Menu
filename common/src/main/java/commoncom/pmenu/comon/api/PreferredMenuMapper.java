@@ -13,9 +13,9 @@ public interface PreferredMenuMapper<T> {
 
 	Integer removeList(List<T> tList);
 
-	Integer update(String key);
+	Integer update(T t);
 
-	Integer updateAll();
+	Integer updateAll(List<T> tList);
 
 	T select(String key);
 

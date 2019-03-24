@@ -1,8 +1,11 @@
 package com.pmenu.menu.mapper;
 
-import com.pmenu.menu.dao.bean.Level;
-import commoncom.pmenu.comon.api.PreferredMenuMapper;
+import org.apache.ibatis.annotations.Mapper;
 
+import com.pmenu.menu.dao.bean.Level;
+
+import commoncom.pmenu.comon.api.PreferredMenuMapper;
+@Mapper
 public interface LevelMapper extends PreferredMenuMapper<Level>{
     int deleteByPrimaryKey(Short code);
 

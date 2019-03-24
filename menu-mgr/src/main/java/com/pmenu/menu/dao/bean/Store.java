@@ -1,6 +1,7 @@
 package com.pmenu.menu.dao.bean;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class Store implements Serializable {
     private String storeId;
@@ -10,6 +11,10 @@ public class Store implements Serializable {
     private String name;
 
     private static final long serialVersionUID = 1L;
+    
+    public Store() {
+    	this.storeId  = UUID.randomUUID().toString();
+	}
 
     public String getStoreId() {
         return storeId;

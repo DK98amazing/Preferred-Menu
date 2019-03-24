@@ -57,3 +57,6 @@ redis:lgy
   		https://www.cnblogs.com/xwjie/p/8995150.html
   		http://www.cnblogs.com/skyme/p/8976866.html
   		https://www.bysocket.com/archives/1987/1987
+  8. 微博的微服务治理框架：Motan
+  		https://github.com/weibocom/motan/wiki	
+  		https://demoso.net/taview/49891

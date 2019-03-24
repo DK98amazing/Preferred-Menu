@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>accountLog</contextName>
+    <property name="log.path" value=".\\log\\"/>
+    <!--<property name="log.file" value=".\\test\\logback.log"/>-->
+    <!--输出到控制台 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--输出到文件 -->
+    <appender name="menuFile"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<file>${log.file}</file>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${log.path}/logback.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} | %contextName | [%thread] | %-5level | %logger{36}.%M\(%line\) -
+                %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="menuFile"/>
+    </root>
+
+    <!-- 打印执行的sql name指定mapper所在的包，additivity设定为true时，父级也会打印相应的信息，相当于打印多次 -->
+    <logger name="com.pmenu.menu.mapper" level="INFO" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="menuFile"/>
+    </logger>
+
+    <!-- logback为java中的包 -->
+    <!--<logger name="com.dudu.controller"/> -->
+    <!--logback.LogbackDemo：类的全路径 -->
+    <!--<logger name="com.dudu.controller.LearnController" level="WARN" additivity="true"> -->
+    <!--<appender-ref ref="console"/> -->
+    <!--</logger> -->
+
+<!--     测试环境+开发环境. 多个使用逗号隔开.
+    <springProfile name="test,dev">
+        <logger name="com.pmenu.menu.mapper" level="INFO"/>
+    </springProfile>
+    生产环境.
+    <springProfile name="prod">
+        <logger name="com.pmenu.menu.mapper" level="ERROR"/>
+    </springProfile> -->
+
+</configuration>
