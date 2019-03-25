@@ -4,7 +4,7 @@ springboot 2.0   spring5  异步非阻塞IO的响应式流，非阻塞函数式�
 ##spring5
 基准版本：jdk8，j2ee7
 
-###常用注解
+###注解
 @RsetController = @Controller + @ResponseBody 
 
 @Configuration用于定义配置类，类中应该包含一个或多个被@Bean修饰的方法。被修饰的不能是final，匿名类。
@@ -104,6 +104,7 @@ public class ExitCodeApplication {
                 .exit(SpringApplication.run(ExitCodeApplication.class, args)));
     }
 }
+```
 
 5.Spring Boot Admin:用于监控spring应用的内存和运行状况。
 开原地址：https://github.com/codecentric/spring-boot-admin
