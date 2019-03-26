@@ -27,11 +27,13 @@ public class AccountServiceImpl implements AccountService {
         return accountMapper.insert(account);
     }
 
+    @Transactional
     @Override
     public Integer deleteAccount(String id) {
         return accountMapper.deleteByPrimaryKey(id);
     }
 
+    @Transactional
     @Override
     public Integer updateAccount(Account account) {
         return accountMapper.updateByPrimaryKeySelective(account);

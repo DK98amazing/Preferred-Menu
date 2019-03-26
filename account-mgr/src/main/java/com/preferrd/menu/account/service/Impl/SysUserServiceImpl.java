@@ -4,33 +4,40 @@ import com.preferrd.menu.account.service.SysUserService;
 import com.preferrd.menu.database.dao.SysUserMapper;
 import com.preferrd.menu.database.model.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * SysUserServiceImpl.
  *
  * @author liguoyao
  */
+@Service
 public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserMapper userMapper;
 
+    @Transactional
     @Override
     public SysUser getSysUser(String userId) {
-        return null;
+        return userMapper.selectByPrimaryKey(userId);
     }
 
+    @Transactional
     @Override
     public int addSysUser(SysUser sysUser) {
-        return 0;
+        return userMapper.insert(sysUser);
     }
 
+    @Transactional
     @Override
     public int updateSysUser(SysUser sysUser) {
-        return 0;
+        return userMapper.updateByPrimaryKey(sysUser);
     }
 
+    @Transactional
     @Override
     public int deleteSysUser(String userId) {
-        return 0;
+        return userMapper.deleteByPrimaryKey(userId);
     }
 }

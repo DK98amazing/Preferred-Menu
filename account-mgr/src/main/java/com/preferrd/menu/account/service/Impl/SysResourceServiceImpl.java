@@ -4,33 +4,40 @@ import com.preferrd.menu.account.service.SysResourceService;
 import com.preferrd.menu.database.dao.SysResourceMapper;
 import com.preferrd.menu.database.model.SysResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * SysResourceServiceImpl.
  *
  * @author liguoyao
  */
+@Service
 public class SysResourceServiceImpl implements SysResourceService {
     @Autowired
     private SysResourceMapper resourceMapper;
 
+    @Transactional
     @Override
     public SysResource getSysResource(String resourceId) {
-        return null;
+        return resourceMapper.selectByPrimaryKey(resourceId);
     }
 
+    @Transactional
     @Override
     public int addSysResource(SysResource sysResource) {
-        return 0;
+        return resourceMapper.insert(sysResource);
     }
 
+    @Transactional
     @Override
     public int updateSysResource(SysResource sysResource) {
-        return 0;
+        return resourceMapper.updateByPrimaryKey(sysResource);
     }
 
+    @Transactional
     @Override
     public int deleteSysResource(String resourceId) {
-        return 0;
+        return resourceMapper.deleteByPrimaryKey(resourceId);
     }
 }

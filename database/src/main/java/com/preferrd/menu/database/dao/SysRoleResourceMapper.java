@@ -11,7 +11,7 @@ public interface SysRoleResourceMapper {
 
     int insertSelective(SysRoleResource record);
 
-    SysRoleResource selectByPrimaryKey(Integer id);
+    SysRoleResource selectByPrimaryKey(String roleId);
 
     int updateByPrimaryKeySelective(SysRoleResource record);
 

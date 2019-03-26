@@ -11,7 +11,7 @@ public interface SysUserRoleMapper {
 
     int insertSelective(SysUserRole record);
 
-    SysUserRole selectByPrimaryKey(Integer id);
+    SysUserRole selectByPrimaryKey(String userId);
 
     int updateByPrimaryKeySelective(SysUserRole record);
 
