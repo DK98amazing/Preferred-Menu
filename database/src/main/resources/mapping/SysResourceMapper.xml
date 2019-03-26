@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.preferrd.menu.database.dao.SysResourceMapper">
+  <resultMap id="BaseResultMap" type="com.preferrd.menu.database.model.SysResource">
+    <id column="resource_id" jdbcType="VARCHAR" property="resourceId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    resource_id, name, description, url, permission, type, priority, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sysresource
+    where resource_id = #{resourceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sysresource
+    where resource_id = #{resourceId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.preferrd.menu.database.model.SysResource">
+    insert into sysresource (resource_id, name, description, 
+      url, permission, type, 
+      priority, status)
+    values (#{resourceId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{permission,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{priority,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.preferrd.menu.database.model.SysResource">
+    insert into sysresource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="permission != null">
+        permission,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.preferrd.menu.database.model.SysResource">
+    update sysresource
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where resource_id = #{resourceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.preferrd.menu.database.model.SysResource">
+    update sysresource
+    set name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      permission = #{permission,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      priority = #{priority,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where resource_id = #{resourceId,jdbcType=VARCHAR}
+  </update>
+</mapper>
