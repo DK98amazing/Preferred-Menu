@@ -13,14 +13,24 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.subject.support.DefaultSubjectContext;
+import org.crazycake.shiro.RedisSessionDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class MyShiroRealm extends AuthorizingRealm {
+    private static final Logger LOG = LoggerFactory.getLogger(MyShiroRealm.class);
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -29,6 +39,8 @@ public class MyShiroRealm extends AuthorizingRealm {
     private AuthorityService authorityService;
     @Autowired
     private RoleAuthorityKeyService roleAuthorityKeyService;
+    @Autowired
+    private RedisSessionDAO redisSessionDAO;
 
     //角色权限和对应权限添加
     @Override
@@ -70,5 +82,41 @@ public class MyShiroRealm extends AuthorizingRealm {
             session.setAttribute("account", account);
             return info;
         }
+    }
+
+    public void clearAuthorizationByUserId(List<String> userIds) {
+        if (null == userIds || userIds.size() == 0) {
+            return;
+        }
+        List<SimplePrincipalCollection> list = getSpcListByUserIds(userIds);
+        RealmSecurityManager securityManager = (RealmSecurityManager) SecurityUtils.getSecurityManager();
+        MyShiroRealm realm = (MyShiroRealm) securityManager.getRealms().iterator().next();
+        for (SimplePrincipalCollection collection : list) {
+            realm.clearCachedAuthorizationInfo(collection);
+        }
+        LOG.info("[用户权限缓存更新成功]");
+    }
+
+    private List<SimplePrincipalCollection> getSpcListByUserIds(List<String> userIds) {
+        //获取所有session
+        Collection<Session> sessions = redisSessionDAO.getActiveSessions();
+        //定义返回
+        List<SimplePrincipalCollection> list = new ArrayList<SimplePrincipalCollection>();
+        for (Session session : sessions) {
+            //获取session登录信息
+            Object obj = session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+            if (null != obj && obj instanceof SimplePrincipalCollection) {
+                SimplePrincipalCollection spc = (SimplePrincipalCollection) obj;
+                //判断用户，匹配用户id
+                obj = spc.getPrimaryPrincipal();
+                if (null != obj && obj instanceof Account) {
+                    Account user = (Account) obj;
+                    if (null != user && userIds.contains(user.getAccountId())) {
+                        list.add(spc);
+                    }
+                }
+            }
+        }
+        return list;
     }
 }

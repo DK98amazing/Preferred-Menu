@@ -80,7 +80,7 @@ public class ShiroConfiguration {
     private RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
         //FIXME: 开启redis.
-        redisManager.setHost("localhost:6379");
+        redisManager.setHost("localhost:6381");
         redisManager.setTimeout(1);// 配置缓存过期时间
         return redisManager;
     }

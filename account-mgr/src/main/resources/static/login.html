@@ -24,7 +24,7 @@
     	var rememberMe =$("input[name='rememberMe']").is(':checked');
         $.ajax({
             type: "post",
-            url: ctx + "login",
+            url: ctx + "static.login",
             data: {"username": username,"password": password,"rememberMe": rememberMe},
             dataType: "json",
             success: function (r) {
