@@ -48,3 +48,57 @@ CREATE TABLE role_authority (
 INSERT INTO public.role_authority(
 	role_id, authority_id)
 	VALUES ('admin', 'all');
+
+CREATE TABLE public.sysuser
+(
+    user_id character varying NOT NULL,
+    user_name character varying NOT NULL,
+    password character varying NOT NULL,
+    email character varying,
+    phone character(11) NOT NULL,
+    sex integer,
+    status integer,
+    last_login_time date,
+    create_time date,
+    update_time date,
+    PRIMARY KEY (user_id)
+)
+
+CREATE TABLE public.sysrole
+(
+    role_id character varying NOT NULL,
+    role character varying NOT NULL,
+    description character varying,
+    status integer,
+    selected integer,
+    PRIMARY KEY (role_id)
+)
+
+CREATE TABLE public.sys_user_role
+(
+    id integer NOT NULL,
+    user_id character varying COLLATE pg_catalog."default" NOT NULL,
+    role_id character varying COLLATE pg_catalog."default",
+    PRIMARY KEY (id)
+)
+
+CREATE TABLE public.sysresource
+(
+    resource_id character varying COLLATE pg_catalog."default" NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default",
+    url character varying COLLATE pg_catalog."default",
+    permission character varying COLLATE pg_catalog."default",
+	type integer,
+	priority integer,
+    status integer,
+	primary key (resource_id)
+)
+
+CREATE TABLE public.sysrole_resource
+(
+    id serial NOT NULL ,
+    role_id character varying COLLATE pg_catalog."default" NOT NULL,
+    resource_id character varying COLLATE pg_catalog."default",
+    PRIMARY KEY (id)
+)

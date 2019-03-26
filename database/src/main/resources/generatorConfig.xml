@@ -22,7 +22,7 @@
         <!-- 数据库的相关配置 -->
         <jdbcConnection driverClass="org.postgresql.Driver"
                         connectionURL="jdbc:postgresql://127.0.0.1:5432/postgres?useSSL=false" userId="postgres"
-                        password="123456"/>
+                        password="postgres"/>
         <javaTypeResolver>
             <!-- This property is used to specify whether MyBatis Generator should
                 force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, -->
@@ -43,16 +43,19 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 相关表的配置 -->
-        <table tableName="account" domainObjectName="Account" enableCountByExample="false"
+        <table tableName="sysuser" domainObjectName="SysUser" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table tableName="account_role" domainObjectName="Role" enableCountByExample="false"
+        <table tableName="sysrole" domainObjectName="SysRole" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table tableName="account_authority" domainObjectName="Authority" enableCountByExample="false"
+        <table tableName="sys_user_role" domainObjectName="SysUserRole" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table tableName="role_authority" domainObjectName="RoleAuthority" enableCountByExample="false"
+        <table tableName="sysresource" domainObjectName="SysResource" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="sys_role_resource" domainObjectName="SysRoleResource" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
     </context>
