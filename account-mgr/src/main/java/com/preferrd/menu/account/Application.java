@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({ "com.preferrd.menu.account", "com.preferrd.menu.database" })
+@ComponentScan({ "com.preferrd.menu.account", "com.preferrd.menu.database", "com.preferrd.menu.email" })
 @MapperScan("com.preferrd.menu.database.dao")
 public class Application {
 

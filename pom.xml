@@ -12,6 +12,7 @@
         <module>account-mgr</module>
         <module>menu-mgr</module>
         <module>database</module>
+        <module>email-mgr</module>
     </modules>
 
 
