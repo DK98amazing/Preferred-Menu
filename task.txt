@@ -1,0 +1,53 @@
+IO demo			2d	doing
+
+netty入门		2d		check
+
+netty原理		1d
+
+docker入门		1d	doing
+
+docker原理		1d	
+
+jenkins入门		2d	doing
+
+springBoot入门		1w	doing
+
+springCloud入门		2w
+
+dubbo入门		2d
+
+redis入门+实践  		2d
+
+nginx入门+实践		2d
+
+消息中间件		2d
+
+数据库复习		2d
+
+设计模式复习		2d
+
+jvm调优，数据库调优	2d
+
+基本算法			2d
+
+单元测试			2d
+
+
+
+解决方案：
+
+分布式缓存			2d
+
+分布式锁			2d
+
+单点登录			2d
+
+微服务架构			2d
+
+应用集群			2d
+
+服务器部署和调优		2d
+
+数据库部署和调优		2d
+
+负载均衡			2d
