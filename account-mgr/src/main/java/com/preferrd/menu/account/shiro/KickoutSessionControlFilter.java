@@ -53,7 +53,8 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
     }
 
     @Override
-    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
+        throws Exception {
         return false;
     }
 
@@ -139,8 +140,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
         return true;
     }
 
-    private void out(ServletResponse hresponse, Map<String, String> resultMap)
-            throws IOException {
+    private void out(ServletResponse hresponse, Map<String, String> resultMap) throws IOException {
         try {
             hresponse.setCharacterEncoding("UTF-8");
             PrintWriter out = hresponse.getWriter();

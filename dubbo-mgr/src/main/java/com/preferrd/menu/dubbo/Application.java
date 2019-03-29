@@ -1,17 +1,21 @@
-package com.preferrd.menu.account;
+package com.preferrd.menu.dubbo;
 
 //import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
-import org.mybatis.spring.annotation.MapperScan;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * Application.
+ *
+ * @author liguoyao
+ */
 //@EnableDubbo
-@SpringBootApplication
-@ComponentScan({ "com.preferrd.menu.account", "com.preferrd.menu.database", "com.preferrd.menu.email" })
-@MapperScan("com.preferrd.menu.database.dao")
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
+@ComponentScan({ "com.preferrd.menu.dubbo" })
 public class Application {
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

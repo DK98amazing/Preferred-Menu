@@ -6,7 +6,6 @@ import com.preferrd.menu.account.service.AccountService;
 import com.preferrd.menu.database.model.Account;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -54,13 +53,13 @@ public class AccountHandler {
 
     @GetMapping("/getAccount")
     Account getUserById(@RequestParam(value = "accountId",
-            required = false) String accountId) {
+                                      required = false) String accountId) {
         return accountService.getAccountById(accountId);
     }
 
     @GetMapping("/getAccount/{accountId}")
     Account getUserById2(@PathVariable(value = "accountId",
-            required = false) String accountId) {
+                                       required = false) String accountId) {
         LOG.info(accountId);
         SecurityUtils.getSubject().hasRole("adminss");
         return accountService.getAccountById(accountId);
@@ -68,7 +67,7 @@ public class AccountHandler {
 
     @DeleteMapping("deleteAccount/{accountId}")
     String deleteAccount(@PathVariable(value = "accountId",
-            required = false) String accountId) {
+                                       required = false) String accountId) {
         int result = accountService.deleteAccount(accountId);
         if (result == 1) {
             return "accountId: " + accountId;
@@ -81,8 +80,8 @@ public class AccountHandler {
     ModelAndView updateAccount(@RequestBody Account account) {
         ModelAndView modelAndView = new ModelAndView();
         if (null == account.getUserName() && null == account.getCardId() && null == account.getDescription()
-                && null == account.getEmail() && null == account.getPassword() && null == account.getPhone()
-                && null == account.getRealName()) {
+            && null == account.getEmail() && null == account.getPassword() && null == account.getPhone()
+            && null == account.getRealName()) {
             modelAndView.addObject("result", 1);
             modelAndView.setViewName("redirect:/account/getAccount?accountId=" + account.getAccountId());
             return modelAndView;
@@ -113,7 +112,7 @@ public class AccountHandler {
         //添加用户认证信息
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken =
-                new UsernamePasswordToken(map.get("username").toString(), map.get("password").toString());
+            new UsernamePasswordToken(map.get("username").toString(), map.get("password").toString());
         usernamePasswordToken.setRememberMe(true);
         Session session = subject.getSession();
         //设置过期时间为10小时

@@ -61,7 +61,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     //用户认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
-            throws AuthenticationException {
+        throws AuthenticationException {
         //加这一步的目的是在Post请求的时候会先进认证，然后再到请求
         if (authenticationToken.getPrincipal() == null) {
             return null;
@@ -77,7 +77,8 @@ public class MyShiroRealm extends AuthorizingRealm {
             throw new AccountException("The username or password is incorrect!");
         } else {
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
-            SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(account.getAccountId(), account.getPassword(), getName());
+            SimpleAuthenticationInfo info =
+                new SimpleAuthenticationInfo(account.getAccountId(), account.getPassword(), getName());
             Session session = SecurityUtils.getSubject().getSession();
             session.setAttribute("account", account);
             return info;

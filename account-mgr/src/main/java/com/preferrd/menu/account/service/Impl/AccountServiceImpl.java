@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
+@com.alibaba.dubbo.config.annotation.Service(interfaceClass = AccountService.class)
 @Service
 public class AccountServiceImpl implements AccountService {
 
