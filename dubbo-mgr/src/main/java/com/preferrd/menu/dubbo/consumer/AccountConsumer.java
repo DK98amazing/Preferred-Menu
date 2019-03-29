@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "dubbo")
 public class AccountConsumer {
-    @Reference
+    @Reference(interfaceClass = AccountService.class)
     private AccountService accountService;
 
     @GetMapping(value = "/getAccount/{accountId}")
