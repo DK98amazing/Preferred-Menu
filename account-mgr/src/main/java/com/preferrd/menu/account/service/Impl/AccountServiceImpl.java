@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@com.alibaba.dubbo.config.annotation.Service(interfaceClass = AccountService.class)
+@com.alibaba.dubbo.config.annotation.Service(interfaceClass = AccountService.class,
+                                             version = "1.0.1",
+                                             application = "${dubbo.application.id}",
+                                             protocol = "${dubbo.protocol.id}",
+                                             registry = "${dubbo.registry.id}")
 @Service
 public class AccountServiceImpl implements AccountService {
 

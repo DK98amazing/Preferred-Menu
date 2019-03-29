@@ -5,7 +5,6 @@ package com.preferrd.menu.dubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
 
 /**
  * Application.
@@ -13,8 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @author liguoyao
  */
 //@EnableDubbo
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
-@ComponentScan({ "com.preferrd.menu.dubbo" })
+@SpringBootApplication(scanBasePackages = "com.preferrd.menu.dubbo",
+                       exclude = { DataSourceAutoConfiguration.class })
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
