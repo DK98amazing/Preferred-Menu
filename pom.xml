@@ -13,6 +13,7 @@
         <module>menu-mgr</module>
         <module>database</module>
         <module>email-mgr</module>
+        <module>redis-mgr</module>
         <module>dubbo-mgr</module>
     </modules>
 
