@@ -88,6 +88,15 @@ ChannelInitializer
 	
 
 ### refer
-IO的demo ： https://blog.csdn.net/anxpp/article/details/51512200
+	IO的demo ： https://blog.csdn.net/anxpp/article/details/51512200
+
+##Server mesh
+
+	管理流量 权限  负载均衡 服务寻址等系统入口 出口的业务，使得这些逻辑脱离业务。
 	
+	存在在的问题是这样的基础设施很容收到安全的威胁
+	
+	Istio和Linkerd
+	
+	编排工具Kubernetes 
 	
