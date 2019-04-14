@@ -60,13 +60,13 @@ HttpResponseStatus
 
 ChannelGroup  DefaultChannelGroup  GlobalEventExecutor
 
-WebSocketFrame
+WebSocketFrame	
 
 PingWebSocketFrame  PongWebSocketFrame
 
-CloseWebSocketFrame
+CloseWebSocketFrame	
 
-TextWebSocketFrame
+TextWebSocketFrame	
 
 ChannelFuture
 
@@ -85,18 +85,31 @@ ServerBootstrap
 NioServerSocketChannel
 
 ChannelInitializer
+
+
+
+###AIO
+AsynchronousServerSocketChannel : 创建一个异步的channel
+InetSocketAddress 创建一个socket地址对象
+ByteBuffer ： 消息缓冲区
+CompletionHandler ： 为chanel创建异步的回调方法，建立连接  收到消息都可以进入回调中
+AsynchronousSocketChannel : 创建一个异步的channel
+
+
+###BIO
+ServerSocket
+Socket
+
+###NIO
+
+
+
+
+
 	
 
 ### refer
-	IO的demo ： https://blog.csdn.net/anxpp/article/details/51512200
+IO的demo ： https://blog.csdn.net/anxpp/article/details/51512200
 
-##Server mesh
 
-	管理流量 权限  负载均衡 服务寻址等系统入口 出口的业务，使得这些逻辑脱离业务。
-	
-	存在在的问题是这样的基础设施很容收到安全的威胁
-	
-	Istio和Linkerd
-	
-	编排工具Kubernetes 
 	

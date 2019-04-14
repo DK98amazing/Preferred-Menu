@@ -64,3 +64,8 @@ redis:lgy
   		https://files-cdn.cnblogs.com/files/han-1034683568/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%E7%BB%88%E6%9E%81%E7%89%88v1.3.0.pdf
   10. 求职套路  https://blog.csdn.net/tzs_1041218129/article/details/78024225
   11。 AIO BIO BIO demo https://blog.csdn.net/anxpp/article/details/51512200
+  12. Uber的kafka应用版本 ：https://github.com/uber/chaperone.git
+  13. springboot demo All : https://github.com/wuyouzhuguli/SpringAll.git
+  
+  
+  
