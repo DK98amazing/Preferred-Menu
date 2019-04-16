@@ -16,20 +16,83 @@ springCloud入门		2w
 
 dubbo入门		2d
 
-redis入门+实践  		2d
+## redis入门+实践  		2d
 
+###常见应用：
+	String 缓存，限流，计数器，分布式锁，分布式session
+	Hash 存储用户信息，用户主页访问量，组合查询
+	List 关注人时间轴列表，简单队列
+	Set（无序集合） 赞 踩 标签 好友关系
+	ZSet（有序集合） 排行榜
+
+### 键值设计
+	 遵循可读性、可管理性、简洁性 ： 
+	 通常可以设计为 “业务名：表名：id” 当然在保证语义的情况下也需要注意key长度。
+	 通常不要再key中包含特殊字符
+	 
+### value设计
+	拒绝bigkey ：防止网卡流量，查询变慢。Stirng控制在10kb内，hash list set zset 元素个数不超过5000	
+
+### 命令使用
+	1 时间复杂度为O（N）的命令
+	hgetall ， lrange ， smembers ，zrange，sinter 。 一般地，当存在遍历需求是建议使用 hscan  sscan  zscan 代替，逐步完成遍历
+	
+	2 禁用命令 
+	有些命令是危险的，一般的在某些环境相我们希望这样的命令永远不会被执行，为了避免误操作，可以使用rename将redis的命令重命名为一个更复杂的名字
+	
+	3合理使用select ？？？
+	
+	4 redis的原生 mget  mset等是原子性的，通常业务操作中可以使用pipeline打包命令提高效率。pipeline需要客户端和服务端的支持
+	（对于pipeline可以提高效率，我存在疑惑）
+	
+	5 redis弱事务（无法回滚） 所以不建议过多使用
+	
+	6 reids的集群版在使用lua脚本是存在特殊要求 ？？？？
+	
+	7 monitor命令（监控redis运行状态）  不建议长时间使用
+	
+### 客户端使用
+
+	1 避免多个应用使用一个redis实例
+	
+	2 使用连接池访问
+	
+	3 客户端添加熔断功能
+	
+	4 对数据适当加密
+	
+	5 执行淘汰策略
+		volatile-lru ： 超过最大内存后，在过期键中使用lru算法剔除过期key
+		allkeys-lru：使用lru算法，无论key是够过期都剔除，直到空间够用
+		allkeys-random：随机剔除key，直到空间够用
+		volatile-ttl：根据键值对象的ttl属性，删除最近将要过期的数据，如果没有则退回到noeviction
+		noeviction：不剔除任何数据，但拒绝所有的写操作
+		
+### 相关工具
+	redis之间同步 使用 redis-port
+	redis大key搜索工具？？？
+	寻找热点key：redis内部实现使用monitor，建议少用，替换使用facebook的redis-faina
+### 删除big key ????
+	推荐使用hscan sscan zscan操作	
+	
 nginx入门+实践		2d
 
 消息中间件		2d
 
-数据库复习		2d		doing
 
 设计模式复习		2d
 
 jvm调优，数据库调优	2d
 
-基本算法			2d
-
+##基本算法？？
+	
+	jdk7和jdk8在hashmap上的实现去区别
+	
+	hash的链地址法避免冲突
+	
+	LZF压缩算法 
+	
+	
 单元测试			2d
 
 swagger			2d
