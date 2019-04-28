@@ -11,8 +11,7 @@ import org.springframework.context.annotation.ImportResource;
 
 //@EnableDubbo
 @SpringBootApplication
-@ComponentScan({ "com.preferrd.menu.account", "com.preferrd.menu.database", "com.preferrd.menu.email",
-                   "com.preferrd.menu.redis" })
+@ComponentScan({ "com.preferrd.menu.account", "com.preferrd.menu.database", "com.preferrd.menu.email" })
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = { "classpath:dubbo-provider.xml" })
 @EnableCaching
