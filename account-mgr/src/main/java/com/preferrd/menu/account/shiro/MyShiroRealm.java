@@ -98,7 +98,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             SimpleAuthenticationInfo info =
                 new SimpleAuthenticationInfo(sysUser.getUserId(), sysUser.getPassword(), getName());
             Session session = SecurityUtils.getSubject().getSession();
-            session.setAttribute("account", sysUser);
+            session.setAttribute("sysUser", sysUser);
             return info;
         }
     }
