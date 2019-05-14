@@ -46,6 +46,14 @@ public class MyShiroRealm extends AuthorizingRealm {
     private RedisSessionDAO redisSessionDAO;
 
     //角色权限和对应权限添加
+
+    /**
+     * 1、subject.hasRole(“admin”) 或 subject.isPermitted(“all”)：自己去调用这个是否有什么角色或者是否有什么权限的时候；
+     * <p>
+     * 2、@RequiresRoles("admin") ：在方法上加注解的时候；
+     * <p>
+     * 3、[@shiro.hasPermission name = "admin"][/@shiro.hasPermission]：在页面上加shiro标签的时候，即进这个页面的时候扫描到有这个标签的时候。
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //获取登录用户名
@@ -62,6 +70,14 @@ public class MyShiroRealm extends AuthorizingRealm {
     }
 
     //用户认证
+
+    /**
+     * 登录的时候进入
+     *
+     * @param authenticationToken 登录信息
+     * @return AuthenticationInfo
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
         throws AuthenticationException {

@@ -66,7 +66,7 @@ public class ShiroConfiguration {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setRedisManager(redisManager());
         //FIXME: PrincipalIdFieldName: Principal唯一字段，必须要有getter方法。
-        redisCacheManager.setPrincipalIdFieldName("accountId");
+        redisCacheManager.setPrincipalIdFieldName("userId");
         return redisCacheManager;
     }
 
@@ -80,7 +80,7 @@ public class ShiroConfiguration {
         RedisManager redisManager = new RedisManager();
         //FIXME: 开启redis.
         redisManager.setHost("localhost:6381");
-        redisManager.setTimeout(1);// 配置缓存过期时间
+        redisManager.setTimeout(10000);// 配置缓存过期时间
         return redisManager;
     }
 

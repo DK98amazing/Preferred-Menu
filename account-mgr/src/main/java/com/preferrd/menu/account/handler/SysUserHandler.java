@@ -3,11 +3,13 @@ package com.preferrd.menu.account.handler;
 //import com.preferrd.menu.account.model.Account;
 
 import com.preferrd.menu.account.service.SysUserService;
+import com.preferrd.menu.account.shiro.MyShiroRealm;
 import com.preferrd.menu.database.model.SysUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,10 +64,10 @@ public class SysUserHandler {
                                        required = false) String userId) {
         SysUser sysUser = null;
         if (SecurityUtils.getSubject().hasRole("admin") & SecurityUtils.getSubject().isPermitted("all")) {
-            LOG.info(userId + "认证成功");
+            LOG.info(userId + " 认证成功");
             sysUser = sysUserService.getSysUser(userId);
         } else {
-            LOG.info("认证失败");
+            LOG.info(userId + " 认证失败");
         }
         return sysUser;
     }
