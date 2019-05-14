@@ -12,13 +12,13 @@ http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!--关闭服务消费方所有服务的启动检查。dubbo缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止Spring初始化完成。-->
     <dubbo:consumer check="false"/>
-    <bean id="accountService" class="com.preferrd.menu.account.service.Impl.AccountServiceImpl">
+    <bean id="sysUserService" class="com.preferrd.menu.account.service.Impl.SysUserServiceImpl">
     </bean>
 
     <!-- 使用注解方式暴露接口，会自动扫描package下所有包中dubbo相关的注解，这样就不用在xml中再针对每个服务接口配置dubbo:service interface-->
     <!--<dubbo:annotation package="com.preferrd.menu.account.service"/>-->
     <!--负载均衡-->
-    <dubbo:service interface="com.preferrd.menu.account.service.AccountService" weight="100" loadbalance="random"
+    <dubbo:service interface="com.preferrd.menu.account.service.SysUserService" weight="100" loadbalance="random"
                    timeout="1000"
-                   ref="accountService"/>
+                   ref="sysUserService"/>
 </beans>

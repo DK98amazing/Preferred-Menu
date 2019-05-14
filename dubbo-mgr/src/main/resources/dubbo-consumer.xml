@@ -14,5 +14,5 @@ http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
     <!-- 使用注解方式创建远程服务代理-->
     <!--<dubbo:annotation package="com.preferrd.menu.account.service"/>-->
     <!--声明服务引用，与服务声明接口类型一致-->
-    <dubbo:reference interface="com.preferrd.menu.account.service.AccountService" id="accountService"/>
+    <dubbo:reference interface="com.preferrd.menu.account.service.SysUserService" id="accountService"/>
 </beans>

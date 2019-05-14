@@ -1,7 +1,7 @@
 package com.preferrd.menu.account.shiro;
 
 import com.alibaba.fastjson.JSON;
-import com.preferrd.menu.database.model.Account;
+import com.preferrd.menu.database.model.SysUser;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.Session;
@@ -68,7 +68,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
 
 
         Session session = subject.getSession();
-        Account user = (Account) subject.getPrincipal();
+        SysUser user = (SysUser) subject.getPrincipal();
         String username = user.getUserName();
         Serializable sessionId = session.getId();
 

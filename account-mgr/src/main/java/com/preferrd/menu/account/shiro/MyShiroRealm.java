@@ -1,10 +1,11 @@
 package com.preferrd.menu.account.shiro;
 
-import com.preferrd.menu.account.service.AccountService;
-import com.preferrd.menu.account.service.AuthorityService;
-import com.preferrd.menu.account.service.RoleAuthorityKeyService;
-import com.preferrd.menu.account.service.RoleService;
-import com.preferrd.menu.database.model.Account;
+import com.preferrd.menu.account.service.SysResourceService;
+import com.preferrd.menu.account.service.SysRoleResourceService;
+import com.preferrd.menu.account.service.SysRoleService;
+import com.preferrd.menu.account.service.SysUserRoleService;
+import com.preferrd.menu.account.service.SysUserService;
+import com.preferrd.menu.database.model.SysUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
@@ -32,13 +33,15 @@ import java.util.List;
 public class MyShiroRealm extends AuthorizingRealm {
     private static final Logger LOG = LoggerFactory.getLogger(MyShiroRealm.class);
     @Autowired
-    private AccountService accountService;
+    private SysUserService sysUserService;
     @Autowired
-    private RoleService roleService;
+    private SysRoleService sysRoleService;
     @Autowired
-    private AuthorityService authorityService;
+    private SysResourceService sysResourceService;
     @Autowired
-    private RoleAuthorityKeyService roleAuthorityKeyService;
+    private SysUserRoleService sysUserRoleService;
+    @Autowired
+    private SysRoleResourceService sysRoleResourceService;
     @Autowired
     private RedisSessionDAO redisSessionDAO;
 
@@ -46,15 +49,15 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //获取登录用户名
-        String accountId = (String) principalCollection.getPrimaryPrincipal();
+        String userId = (String) principalCollection.getPrimaryPrincipal();
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        Account account = accountService.getAccountById(accountId);
-        String roleId = account.getRoleId();
-        String roleName = roleService.getRoleName(roleId).getRoleName();
+        SysUser sysUser = sysUserService.getSysUser(userId);
+        String roleId = sysUserRoleService.getSysUserRole(sysUser.getUserId()).getRoleId();
+        String roleName = sysRoleService.getSysRole(roleId).getRole();
         simpleAuthorizationInfo.addRole(roleName);
-        String authorityId = roleAuthorityKeyService.getRoleAuthorityKey(roleId).getAuthorityId();
-        simpleAuthorizationInfo.addStringPermission(authorityService.getAuthority(authorityId).getPermission());
+        String resourceId = sysRoleResourceService.getSysRoleResource(roleId).getResourceId();
+        simpleAuthorizationInfo.addStringPermission(sysResourceService.getSysResource(resourceId).getPermission());
         return simpleAuthorizationInfo;
     }
 
@@ -68,19 +71,19 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         //获取用户信息
         char[] pwd = (char[]) authenticationToken.getCredentials();
-        String accountId = authenticationToken.getPrincipal().toString();
-        Account account = accountService.getAccountById(accountId);
-        if (account == null) {
+        String userId = authenticationToken.getPrincipal().toString();
+        SysUser sysUser = sysUserService.getSysUser(userId);
+        if (sysUser == null) {
             //这里返回后会报出对应异常
             throw new AccountException("User does not exist!");
-        } else if (!Arrays.equals(pwd, account.getPassword().toCharArray())) {
+        } else if (!Arrays.equals(pwd, sysUser.getPassword().toCharArray())) {
             throw new AccountException("The username or password is incorrect!");
         } else {
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             SimpleAuthenticationInfo info =
-                new SimpleAuthenticationInfo(account.getAccountId(), account.getPassword(), getName());
+                new SimpleAuthenticationInfo(sysUser.getUserId(), sysUser.getPassword(), getName());
             Session session = SecurityUtils.getSubject().getSession();
-            session.setAttribute("account", account);
+            session.setAttribute("account", sysUser);
             return info;
         }
     }
@@ -110,9 +113,9 @@ public class MyShiroRealm extends AuthorizingRealm {
                 SimplePrincipalCollection spc = (SimplePrincipalCollection) obj;
                 //判断用户，匹配用户id
                 obj = spc.getPrimaryPrincipal();
-                if (null != obj && obj instanceof Account) {
-                    Account user = (Account) obj;
-                    if (null != user && userIds.contains(user.getAccountId())) {
+                if (null != obj && obj instanceof SysUser) {
+                    SysUser user = (SysUser) obj;
+                    if (null != user && userIds.contains(user.getUserId())) {
                         list.add(spc);
                     }
                 }

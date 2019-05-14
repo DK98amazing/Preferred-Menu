@@ -1,7 +1,7 @@
 package com.preferrd.menu.dubbo.consumer;
 
-import com.preferrd.menu.account.service.AccountService;
-import com.preferrd.menu.database.model.Account;
+import com.preferrd.menu.account.service.SysUserService;
+import com.preferrd.menu.database.model.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,10 +21,10 @@ public class AccountConsumer {
     //               application = "${dubbo.application.id}",
     //               url = "dubbo://localhost:12345")
     @Autowired
-    private AccountService accountService;
+    private SysUserService sysUserService;
 
-    @GetMapping(value = "/getAccount/{accountId}")
-    private Account getAccount(@PathVariable(value = "accountId") String accountId) {
-        return accountService.getAccountById(accountId);
+    @GetMapping(value = "/getUser/{userId}")
+    private SysUser getUser(@PathVariable(value = "userId") String userId) {
+        return sysUserService.getSysUser(userId);
     }
 }

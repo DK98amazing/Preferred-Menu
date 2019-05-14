@@ -2,8 +2,8 @@ package com.preferrd.menu.account.handler;
 
 //import com.preferrd.menu.account.model.Account;
 
-import com.preferrd.menu.account.service.AccountService;
-import com.preferrd.menu.database.model.Account;
+import com.preferrd.menu.account.service.SysUserService;
+import com.preferrd.menu.database.model.SysUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -29,17 +29,17 @@ import java.util.Map;
  * @author liguoyao
  */
 @RestController
-@RequestMapping("/account")
-public class AccountHandler {
-    private static final Logger LOG = LoggerFactory.getLogger(AccountHandler.class);
+@RequestMapping("/sysuser")
+public class SysUserHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(SysUserHandler.class);
     @Autowired
-    private AccountService accountService;
+    private SysUserService sysUserService;
 
     @GetMapping("/forward")
     ModelAndView home1() {
         ModelAndView mv = new ModelAndView();
         // request url不变
-        mv.setViewName("forward:/account/cities");
+        mv.setViewName("forward:/sysuser/cities");
         return mv;
     }
 
@@ -47,49 +47,50 @@ public class AccountHandler {
     ModelAndView home2() {
         ModelAndView mv = new ModelAndView();
         // request url改变
-        mv.setViewName("redirect:/account/cities");
+        mv.setViewName("redirect:/sysuser/cities");
         return mv;
     }
 
-    @GetMapping("/getAccount")
-    Account getUserById(@RequestParam(value = "accountId",
-                                      required = false) String accountId) {
-        return accountService.getAccountById(accountId);
+    @GetMapping("/getSysUser")
+    SysUser getUserById(@RequestParam(value = "userId",
+                                      required = false) String userId) {
+        return sysUserService.getSysUser(userId);
     }
 
-    @GetMapping("/getAccount/{accountId}")
-    Account getUserById2(@PathVariable(value = "accountId",
-                                       required = false) String accountId) {
-        LOG.info(accountId);
-        SecurityUtils.getSubject().hasRole("adminss");
-        return accountService.getAccountById(accountId);
+    @GetMapping("/getSysUser/{userId}")
+    SysUser getUserById2(@PathVariable(value = "userId",
+                                       required = false) String userId) {
+        LOG.info(userId);
+        //        SecurityUtils.getSubject().hasRole("adminss");
+        return sysUserService.getSysUser(userId);
     }
 
-    @DeleteMapping("deleteAccount/{accountId}")
-    String deleteAccount(@PathVariable(value = "accountId",
-                                       required = false) String accountId) {
-        int result = accountService.deleteAccount(accountId);
+    @DeleteMapping("deleteSysUser/{userId}")
+    String deleteSysUser(@PathVariable(value = "userId",
+                                       required = false) String userId) {
+        int result = sysUserService.deleteSysUser(userId);
         if (result == 1) {
-            return "accountId: " + accountId;
+            return "userId: " + userId;
         } else {
             throw new IllegalStateException("delete failed");
         }
     }
 
-    @PostMapping("updateAccount")
-    ModelAndView updateAccount(@RequestBody Account account) {
+    @PostMapping("updateSyUser")
+    ModelAndView updateSysUser(@RequestBody SysUser sysUser) {
         ModelAndView modelAndView = new ModelAndView();
-        if (null == account.getUserName() && null == account.getCardId() && null == account.getDescription()
-            && null == account.getEmail() && null == account.getPassword() && null == account.getPhone()
-            && null == account.getRealName()) {
+        if (null == sysUser.getUserName() && null == sysUser.getCreateTime() && null == sysUser.getUpdateTime()
+            && null == sysUser.getEmail() && null == sysUser.getPassword() && null == sysUser.getPhone()
+            && null == sysUser.getLastLoginTime() && null == sysUser.getSex() && null == sysUser.getStatus()
+            && null == sysUser.getUserId()) {
             modelAndView.addObject("result", 1);
-            modelAndView.setViewName("redirect:/account/getAccount?accountId=" + account.getAccountId());
+            modelAndView.setViewName("redirect:/account/getAccount?userId=" + sysUser.getUserId());
             return modelAndView;
         } else {
-            int result = accountService.updateAccount(account);
+            int result = sysUserService.updateSysUser(sysUser);
             if (result == 1) {
                 modelAndView.addObject("result", result);
-                modelAndView.setViewName("redirect:/account/getAccount?accountId=" + account.getAccountId());
+                modelAndView.setViewName("redirect:/account/getAccount?userId=" + sysUser.getUserId());
                 return modelAndView;
             } else {
                 throw new IllegalStateException("update failed");
