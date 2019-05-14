@@ -14,7 +14,6 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -104,16 +103,16 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
     }
 
-    public void clearAuthorizationByUserId(List<String> userIds) {
-        if (null == userIds || userIds.size() == 0) {
-            return;
-        }
-        List<SimplePrincipalCollection> list = getSpcListByUserIds(userIds);
-        RealmSecurityManager securityManager = (RealmSecurityManager) SecurityUtils.getSecurityManager();
-        MyShiroRealm realm = (MyShiroRealm) securityManager.getRealms().iterator().next();
-        for (SimplePrincipalCollection collection : list) {
-            realm.clearCachedAuthorizationInfo(collection);
-        }
+    public void clearAuthorizationByUserId(PrincipalCollection principalCollection) {
+        //        if (null == userIds || userIds.size() == 0) {
+        //            return;
+        //        }
+        //        List<SimplePrincipalCollection> list = getSpcListByUserIds(userIds);
+        //        RealmSecurityManager securityManager = (RealmSecurityManager) SecurityUtils.getSecurityManager();
+        //        MyShiroRealm realm = (MyShiroRealm) securityManager.getRealms().iterator().next();
+        //        for (SimplePrincipalCollection collection : list) {
+        this.clearCachedAuthorizationInfo(principalCollection);
+        //        }
         LOG.info("[用户权限缓存更新成功]");
     }
 

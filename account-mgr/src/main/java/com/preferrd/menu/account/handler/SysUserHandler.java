@@ -98,6 +98,10 @@ public class SysUserHandler {
             if (result == 1) {
                 modelAndView.addObject("result", result);
                 modelAndView.setViewName("redirect:/account/getAccount?userId=" + sysUser.getUserId());
+                DefaultWebSecurityManager securityManager =
+                    (DefaultWebSecurityManager) SecurityUtils.getSecurityManager();
+                MyShiroRealm myShiroRealm = (MyShiroRealm) securityManager.getRealms().iterator().next();
+                myShiroRealm.clearAuthorizationByUserId(SecurityUtils.getSubject().getPrincipals());
                 return modelAndView;
             } else {
                 throw new IllegalStateException("update failed");
