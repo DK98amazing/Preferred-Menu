@@ -112,6 +112,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         //        MyShiroRealm realm = (MyShiroRealm) securityManager.getRealms().iterator().next();
         //        for (SimplePrincipalCollection collection : list) {
         this.clearCachedAuthorizationInfo(principalCollection);
+        this.clearCachedAuthenticationInfo(principalCollection);
         //        }
         LOG.info("[用户权限缓存更新成功]");
     }
