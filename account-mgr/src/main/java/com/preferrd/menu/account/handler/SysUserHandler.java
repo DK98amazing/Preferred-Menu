@@ -60,9 +60,14 @@ public class SysUserHandler {
     @GetMapping("/getSysUser/{userId}")
     SysUser getUserById2(@PathVariable(value = "userId",
                                        required = false) String userId) {
-        LOG.info(userId);
-        //        SecurityUtils.getSubject().hasRole("adminss");
-        return sysUserService.getSysUser(userId);
+        SysUser sysUser = null;
+        if (SecurityUtils.getSubject().hasRole("admin") & SecurityUtils.getSubject().isPermitted("all")) {
+            LOG.info(userId + "认证成功");
+            sysUser = sysUserService.getSysUser(userId);
+        } else {
+            LOG.info("认证失败");
+        }
+        return sysUser;
     }
 
     @DeleteMapping("deleteSysUser/{userId}")
