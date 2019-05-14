@@ -83,7 +83,7 @@ public class SysUserHandler {
         }
     }
 
-    @PostMapping("updateSyUser")
+    @PostMapping("updateSysUser")
     ModelAndView updateSysUser(@RequestBody SysUser sysUser) {
         ModelAndView modelAndView = new ModelAndView();
         if (null == sysUser.getUserName() && null == sysUser.getCreateTime() && null == sysUser.getUpdateTime()
@@ -91,22 +91,21 @@ public class SysUserHandler {
             && null == sysUser.getLastLoginTime() && null == sysUser.getSex() && null == sysUser.getStatus()
             && null == sysUser.getUserId()) {
             modelAndView.addObject("result", 1);
-            modelAndView.setViewName("redirect:/account/getAccount?userId=" + sysUser.getUserId());
-            return modelAndView;
+            modelAndView.setViewName("redirect:/sysuser/getSysUser?userId=" + sysUser.getUserId());
         } else {
             int result = sysUserService.updateSysUser(sysUser);
             if (result == 1) {
                 modelAndView.addObject("result", result);
-                modelAndView.setViewName("redirect:/account/getAccount?userId=" + sysUser.getUserId());
+                modelAndView.setViewName("redirect:/sysuser/getSysUser?userId=" + sysUser.getUserId());
                 DefaultWebSecurityManager securityManager =
                     (DefaultWebSecurityManager) SecurityUtils.getSecurityManager();
                 MyShiroRealm myShiroRealm = (MyShiroRealm) securityManager.getRealms().iterator().next();
                 myShiroRealm.clearAuthorizationByUserId(SecurityUtils.getSubject().getPrincipals());
-                return modelAndView;
             } else {
                 throw new IllegalStateException("update failed");
             }
         }
+        return modelAndView;
     }
 
     //退出的时候是get请求，主要是用于退出
