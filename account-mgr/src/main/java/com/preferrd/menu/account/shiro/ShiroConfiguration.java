@@ -56,7 +56,14 @@ public class ShiroConfiguration {
     //将自己的验证方式加入容器
     @Bean
     public MyShiroRealm myShiroRealm() {
-        return new MyShiroRealm();
+        MyShiroRealm myShiroRealm = new MyShiroRealm();
+        myShiroRealm.setName("myShiroRealm");
+        myShiroRealm.setAuthenticationCacheName("UserAuthenticationCacheName");
+        myShiroRealm.setAuthorizationCacheName("UserAuthorizationCacheName");
+        myShiroRealm.setCachingEnabled(true);
+        myShiroRealm.setAuthenticationCachingEnabled(true);
+        myShiroRealm.setAuthorizationCachingEnabled(true);
+        return myShiroRealm;
     }
 
     /**
