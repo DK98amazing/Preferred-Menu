@@ -81,20 +81,6 @@ public class ShiroConfiguration {
     }
 
     /**
-     * 配置shiro redisManager
-     * 使用的是shiro-redis开源插件
-     *
-     * @return
-     */
-    private RedisManager redisManager() {
-        RedisManager redisManager = new RedisManager();
-        //FIXME: 开启redis.
-        redisManager.setHost("localhost:6381");
-        redisManager.setTimeout(180000);// 配置缓存过期时间
-        return redisManager;
-    }
-
-    /**
      * Session Manager
      * 使用的是shiro-redis开源插件
      */
@@ -105,6 +91,19 @@ public class ShiroConfiguration {
         sessionManager.setCacheManager(cacheManager());
         sessionManager.setGlobalSessionTimeout(1000 * 180);
         return sessionManager;
+    }
+
+    /**
+     * 配置shiro redisManager
+     * 使用的是shiro-redis开源插件
+     *
+     * @return
+     */
+    private RedisManager redisManager() {
+        RedisManager redisManager = new RedisManager();
+        redisManager.setHost("localhost:6381");
+        redisManager.setTimeout(180);// 配置缓存过期时间
+        return redisManager;
     }
 
     @Bean
