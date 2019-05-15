@@ -2,6 +2,8 @@ package com.preferrd.menu.account.shiro;
 
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
+import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -93,8 +95,14 @@ public class ShiroConfiguration {
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionDAO(redisSessionDAO());
+        sessionManager.setCacheManager(cacheManager());
         sessionManager.setGlobalSessionTimeout(1000 * 60);
         return sessionManager;
+    }
+
+    @Bean
+    public SessionIdGenerator sessionIdGenerator() {
+        return new JavaUuidSessionIdGenerator();
     }
 
     /**
@@ -105,6 +113,7 @@ public class ShiroConfiguration {
     public RedisSessionDAO redisSessionDAO() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
         redisSessionDAO.setRedisManager(redisManager());
+        redisSessionDAO.setSessionIdGenerator(sessionIdGenerator());
         return redisSessionDAO;
     }
 
