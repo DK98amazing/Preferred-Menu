@@ -34,7 +34,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
         // Defaults
         redisConnectionFactory.setHostName("127.0.0.1");
-        redisConnectionFactory.setPort(6381);
+        redisConnectionFactory.setPort(6379);
         return redisConnectionFactory;
     }
 
@@ -43,7 +43,12 @@ public class RedisConfig extends CachingConfigurerSupport {
         RedisTemplate<Object, SysUser> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
         Jackson2JsonRedisSerializer<SysUser> ser = new Jackson2JsonRedisSerializer<>(SysUser.class);
-        template.setDefaultSerializer(ser);
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        ser.setObjectMapper(om);
+        template.setValueSerializer(ser);
+        template.afterPropertiesSet();
         return template;
     }
 
@@ -84,7 +89,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(SysUser.class);
 
         //解决查询缓存转换异常的问题
         ObjectMapper om = new ObjectMapper();
