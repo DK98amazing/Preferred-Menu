@@ -127,10 +127,9 @@ public class SysUserHandler {
         usernamePasswordToken.setRememberMe(true);
         Session session = subject.getSession();
         //设置过期时间为10小时
-        session.setTimeout(1);
+        session.setTimeout(1000 * 60);
         //进行验证，这里可以捕获异常，然后返回对应信息
         try {
-            subject.hasRole("ad");
             subject.login(usernamePasswordToken);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());

@@ -3,7 +3,7 @@ package com.preferrd.menu.redis;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.preferrd.menu.database.model.Account;
+import com.preferrd.menu.database.model.SysUser;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
@@ -28,10 +29,20 @@ import java.time.Duration;
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport {
     @Bean
-    public RedisTemplate<Object, Account> accountRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<Object, Account> template = new RedisTemplate<Object, Account>();
+    public JedisConnectionFactory redisConnectionFactory() {
+        JedisConnectionFactory redisConnectionFactory = new JedisConnectionFactory();
+
+        // Defaults
+        redisConnectionFactory.setHostName("127.0.0.1");
+        redisConnectionFactory.setPort(6381);
+        return redisConnectionFactory;
+    }
+
+    @Bean(name = "accountRedisTemplate")
+    public RedisTemplate<Object, SysUser> accountRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<Object, SysUser> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
-        Jackson2JsonRedisSerializer<Account> ser = new Jackson2JsonRedisSerializer<Account>(Account.class);
+        Jackson2JsonRedisSerializer<SysUser> ser = new Jackson2JsonRedisSerializer<>(SysUser.class);
         template.setDefaultSerializer(ser);
         return template;
     }
@@ -51,8 +62,11 @@ public class RedisConfig extends CachingConfigurerSupport {
         return template;
     }
 
-    @Bean
-    /** cache key generation strategy */ public KeyGenerator KeyGenerator() {
+    /**
+     * cache key generation strategy
+     */
+    @Bean(name = "userKeyGenerator")
+    public KeyGenerator KeyGenerator() {
         return (target, method, params) -> {
             StringBuilder sb = new StringBuilder();
             sb.append(target.getClass().getName());
@@ -64,8 +78,11 @@ public class RedisConfig extends CachingConfigurerSupport {
         };
     }
 
+    /**
+     * redis-cache configuration
+     */
     @Bean
-    /**  redis-cache configuration */ public CacheManager cacheManager(RedisConnectionFactory factory) {
+    public CacheManager cacheManager(RedisConnectionFactory factory) {
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
 

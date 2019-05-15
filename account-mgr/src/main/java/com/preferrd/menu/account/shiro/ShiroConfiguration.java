@@ -93,6 +93,7 @@ public class ShiroConfiguration {
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionDAO(redisSessionDAO());
+        sessionManager.setGlobalSessionTimeout(1000 * 60);
         return sessionManager;
     }
 
@@ -170,7 +171,7 @@ public class ShiroConfiguration {
         //如果httyOnly设置为true，则客户端不会暴露给客户端脚本代码，使用HttpOnly cookie有助于减少某些类型的跨站点脚本攻击；
         simpleCookie.setHttpOnly(true);
         //记住我cookie生效时间,默认30天 ,单位秒：60 * 60 * 24 * 30
-        simpleCookie.setMaxAge(60);
+        simpleCookie.setMaxAge(60 * 60);
 
         return simpleCookie;
     }

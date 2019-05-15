@@ -4,6 +4,18 @@
     <groupId>com.preferred.menu</groupId>
     <artifactId>preferred.menu</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <packaging>pom</packaging>
 
     <modules>
@@ -12,6 +24,7 @@
         <module>account-mgr</module>
         <module>menu-mgr</module>
         <module>database</module>
+        <module>redis-mgr</module>
         <module>email-mgr</module>
         <module>dubbo-mgr</module>
     </modules>
