@@ -47,7 +47,6 @@ public class ShiroConfiguration {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
-        securityManager.setCacheManager(cacheManager());
         securityManager.setSessionManager(sessionManager());
         securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
@@ -63,6 +62,7 @@ public class ShiroConfiguration {
         myShiroRealm.setCachingEnabled(true);
         myShiroRealm.setAuthenticationCachingEnabled(true);
         myShiroRealm.setAuthorizationCachingEnabled(true);
+        myShiroRealm.setCacheManager(cacheManager());
         return myShiroRealm;
     }
 
@@ -103,7 +103,7 @@ public class ShiroConfiguration {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionDAO(redisSessionDAO());
         sessionManager.setCacheManager(cacheManager());
-        sessionManager.setGlobalSessionTimeout(1000 * 60);
+        sessionManager.setGlobalSessionTimeout(1000 * 180);
         return sessionManager;
     }
 
