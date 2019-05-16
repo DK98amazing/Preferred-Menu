@@ -8,6 +8,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * SysUserServiceImpl.
  *
@@ -27,7 +29,7 @@ public class SysUserServiceImpl implements SysUserService {
     //               cacheManager = "dbCacheManager")
     public SysUser getSysUser(String userId) {
         SysUser sysUser = userMapper.selectByPrimaryKey(userId);
-        accountRedisTemplate.opsForValue().set(userId, sysUser.toString());
+        accountRedisTemplate.opsForValue().set(userId, sysUser.toString(), 1, TimeUnit.HOURS);
         return sysUser;
     }
 
