@@ -13,6 +13,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,8 @@ public class SysUserHandler {
     private static final Logger LOG = LoggerFactory.getLogger(SysUserHandler.class);
     @Autowired
     private SysUserService sysUserService;
+    @Autowired
+    private RedisTemplate accountRedisTemplate;
 
     @GetMapping("/forward")
     ModelAndView home1() {
@@ -65,7 +68,11 @@ public class SysUserHandler {
         SysUser sysUser = null;
         if (SecurityUtils.getSubject().hasRole("admin") & SecurityUtils.getSubject().isPermitted("all")) {
             LOG.info(userId + " 认证成功");
-            sysUser = sysUserService.getSysUser(userId);
+            if (accountRedisTemplate.hasKey("sysuser: " + userId)) {
+                sysUser = (SysUser) accountRedisTemplate.opsForValue().get("sysuser: " + userId);
+            } else {
+                sysUser = sysUserService.getSysUser(userId);
+            }
         } else {
             LOG.info(userId + " 认证失败");
         }

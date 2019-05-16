@@ -29,7 +29,7 @@ public class SysUserServiceImpl implements SysUserService {
     //               cacheManager = "dbCacheManager")
     public SysUser getSysUser(String userId) {
         SysUser sysUser = userMapper.selectByPrimaryKey(userId);
-        accountRedisTemplate.opsForValue().set(userId, sysUser.toString(), 1, TimeUnit.HOURS);
+        accountRedisTemplate.opsForValue().set("sysuser: " + userId, sysUser, 1, TimeUnit.HOURS);
         return sysUser;
     }
 
