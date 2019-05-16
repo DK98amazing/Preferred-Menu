@@ -4,7 +4,7 @@ import com.preferrd.menu.account.service.SysUserService;
 import com.preferrd.menu.database.dao.SysUserMapper;
 import com.preferrd.menu.database.model.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +18,13 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserMapper userMapper;
     @Autowired
-    private StringRedisTemplate accountRedisTemplate;
+    private RedisTemplate accountRedisTemplate;
 
-    @Transactional
-    //    @Cacheable(value = "userCache",
-    //               key = "#userId")
     @Override
+    @Transactional
+    //    @Cacheable(cacheNames = "userCache",
+    //               key = "#userId",
+    //               cacheManager = "dbCacheManager")
     public SysUser getSysUser(String userId) {
         SysUser sysUser = userMapper.selectByPrimaryKey(userId);
         accountRedisTemplate.opsForValue().set(userId, sysUser.toString());

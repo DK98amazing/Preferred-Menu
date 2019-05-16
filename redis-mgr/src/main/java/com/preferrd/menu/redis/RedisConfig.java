@@ -35,6 +35,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         // Defaults
         redisConnectionFactory.setHostName("127.0.0.1");
         redisConnectionFactory.setPort(6379);
+        redisConnectionFactory.setTimeout(60 * 60 * 6);
         return redisConnectionFactory;
     }
 
@@ -47,6 +48,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         ser.setObjectMapper(om);
+        template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(ser);
         template.afterPropertiesSet();
         return template;
@@ -86,7 +88,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     /**
      * redis-cache configuration
      */
-    @Bean
+    @Bean(name = "dbCacheManager")
     public CacheManager cacheManager(RedisConnectionFactory factory) {
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(SysUser.class);
@@ -100,13 +102,14 @@ public class RedisConfig extends CachingConfigurerSupport {
         // 配置序列化（解决乱码的问题）
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
             // 7 天缓存过期
-            .entryTtl(Duration.ofDays(7))
+            .entryTtl(Duration.ofMinutes(3))
             .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
             .serializeValuesWith(
                 RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
             .disableCachingNullValues();
 
-        RedisCacheManager cacheManager = RedisCacheManager.builder(factory).cacheDefaults(config).build();
+        RedisCacheManager cacheManager =
+            RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(factory).cacheDefaults(config).build();
         return cacheManager;
     }
 }
