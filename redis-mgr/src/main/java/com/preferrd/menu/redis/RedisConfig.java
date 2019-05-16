@@ -109,7 +109,8 @@ public class RedisConfig extends CachingConfigurerSupport {
             .disableCachingNullValues();
 
         RedisCacheManager cacheManager =
-            RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(factory).cacheDefaults(config).build();
+            RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(factory).cacheDefaults(config)
+                .transactionAware().build();
         return cacheManager;
     }
 }
