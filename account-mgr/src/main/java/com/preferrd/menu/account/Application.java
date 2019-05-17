@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @ComponentScan({ "com.preferrd.menu.account.*", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
-                   "com.preferrd.menu.redis" })
+                   "com.preferrd.menu.redis", "com.preferrd.menu.aop.log.*" })
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = { "classpath:dubbo-provider.xml" })
 @EnableCaching

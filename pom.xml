@@ -21,6 +21,7 @@
     <modules>
         <module>preferred-menu-parent</module>
         <module>common</module>
+        <module>aop-log-mgr</module>
         <module>account-mgr</module>
         <module>menu-mgr</module>
         <module>database</module>

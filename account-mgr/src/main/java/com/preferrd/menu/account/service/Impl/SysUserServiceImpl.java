@@ -1,14 +1,13 @@
 package com.preferrd.menu.account.service.Impl;
 
 import com.preferrd.menu.account.service.SysUserService;
+import com.preferrd.menu.aop.log.annotation.Log;
 import com.preferrd.menu.database.dao.SysUserMapper;
 import com.preferrd.menu.database.model.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * SysUserServiceImpl.
@@ -23,13 +22,14 @@ public class SysUserServiceImpl implements SysUserService {
     private RedisTemplate accountRedisTemplate;
 
     @Override
+    @Log(value = "getSysUser")
     @Transactional
     //    @Cacheable(cacheNames = "userCache",
     //               key = "#userId",
     //               cacheManager = "dbCacheManager")
     public SysUser getSysUser(String userId) {
         SysUser sysUser = userMapper.selectByPrimaryKey(userId);
-        accountRedisTemplate.opsForValue().set("sysuser: " + userId, sysUser, 1, TimeUnit.HOURS);
+        //        accountRedisTemplate.opsForValue().set("sysuser: " + userId, sysUser, 1, TimeUnit.HOURS);
         return sysUser;
     }
 
