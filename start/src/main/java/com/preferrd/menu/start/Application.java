@@ -1,4 +1,4 @@
-package com.preferrd.menu.account;
+package com.preferrd.menu.start;
 
 //import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 

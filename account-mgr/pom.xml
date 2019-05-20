@@ -30,11 +30,6 @@
         </dependency>
         <dependency>
             <groupId>com.preferred.menu</groupId>
-            <artifactId>email-mgr</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.preferred.menu</groupId>
             <artifactId>redis-mgr</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -53,21 +48,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.56</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.boot</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-            <version>0.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.curator</groupId>
-            <artifactId>curator-framework</artifactId>
-            <version>4.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-            <version>3.4.13</version>
-        </dependency>
     </dependencies>
 
 
@@ -84,7 +64,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <mainClass>com.preferrd.menu.account.Application</mainClass>
+                    <mainClass>com.preferrd.menu.start.Application</mainClass>
                 </configuration>
                 <executions>
                     <execution>

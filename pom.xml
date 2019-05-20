@@ -28,6 +28,7 @@
         <module>redis-mgr</module>
         <module>email-mgr</module>
         <module>dubbo-mgr</module>
+        <module>start</module>
     </modules>
 
 
