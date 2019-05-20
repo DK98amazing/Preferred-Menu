@@ -23,7 +23,6 @@
         <module>common</module>
         <module>aop-log-mgr</module>
         <module>account-mgr</module>
-        <module>menu-mgr</module>
         <module>database</module>
         <module>redis-mgr</module>
         <module>email-mgr</module>
