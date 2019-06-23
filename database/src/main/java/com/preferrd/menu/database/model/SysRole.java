@@ -1,6 +1,12 @@
 package com.preferrd.menu.database.model;
 
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 import java.io.Serializable;
+import java.util.concurrent.atomic.LongAdder;
 
 public class SysRole implements Serializable {
     private String roleId;
@@ -68,10 +74,10 @@ public class SysRole implements Serializable {
         }
         SysRole other = (SysRole) that;
         return (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
-            && (this.getRole() == null ? other.getRole() == null : this.getRole().equals(other.getRole()))
-            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getSelected() == null ? other.getSelected() == null : this.getSelected().equals(other.getSelected()));
+                && (this.getRole() == null ? other.getRole() == null : this.getRole().equals(other.getRole()))
+                && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getSelected() == null ? other.getSelected() == null : this.getSelected().equals(other.getSelected()));
     }
 
     @Override
@@ -100,5 +106,13 @@ public class SysRole implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public static void main(String args[]) {
+        SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(new Configuration());
+        SqlSession sqlSession = factory.openSession(true);
+        LongAdder resultCount = new LongAdder();
+        sqlSession.select("select * from tt", resultContext -> resultCount.add(resultContext.getResultCount()));
     }
 }
