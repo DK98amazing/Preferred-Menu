@@ -2,12 +2,18 @@ package com.preferrd.menu.start;
 
 //import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 
+import com.preferrd.menu.redis.ConfigProperties;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
@@ -20,7 +26,11 @@ import java.util.Arrays;
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = { "classpath:dubbo-provider.xml" })
 @EnableCaching
+@EnableConfigurationProperties(ConfigProperties.class)
 public class Application {
+
+    @Autowired
+    private ApplicationContext applicationCtx;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -35,8 +45,12 @@ public class Application {
             String[] beanNames = ctx.getBeanDefinitionNames();
             Arrays.sort(beanNames);
             for (String beanName : beanNames) {
-                //System.out.println(beanName);
+                if (beanName.equalsIgnoreCase("ConfigProperties")) {
+                    System.out.println(beanName);
+                }
             }
+
+            System.err.println("********" + ((ConfigProperties)applicationCtx.getBean("configProperties")).getHostName());
 
         };
     }
