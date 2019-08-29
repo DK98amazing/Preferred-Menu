@@ -6,6 +6,7 @@ import com.preferrd.menu.redis.ConfigProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,8 +33,13 @@ public class Application {
     @Autowired
     private ApplicationContext applicationCtx;
 
+    @Value("${test.name}")
+    private String str;
+
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication springApplication = new SpringApplication(Application.class);
+        springApplication.setAddCommandLineProperties(false);
+        springApplication.run(Application.class, args);
     }
 
     @Bean
@@ -51,7 +57,7 @@ public class Application {
             }
 
             System.err.println("********" + ((ConfigProperties)applicationCtx.getBean("configProperties")).getHostName());
-
+            System.err.println("********" + str);
         };
     }
 
