@@ -78,16 +78,6 @@
                 <!--</plugin>-->
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
         <resources>
             <!-- maven项目中src源代码下的xml等资源文件编译进classes文件夹，
               注意：如果没有这个，它会自动搜索resources下是否有mapper.xml文件，
