@@ -35,7 +35,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         // Defaults
         redisConnectionFactory.setHostName("127.0.0.1");
         redisConnectionFactory.setPort(6379);
-        redisConnectionFactory.setTimeout(60 * 60 * 6);
+        redisConnectionFactory.setTimeout(1800000);
         return redisConnectionFactory;
     }
 
