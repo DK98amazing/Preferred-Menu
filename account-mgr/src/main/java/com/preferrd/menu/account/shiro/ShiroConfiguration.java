@@ -120,7 +120,7 @@ public class ShiroConfiguration {
     public RedisSessionDAO redisSessionDAO() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
         redisSessionDAO.setRedisManager(redisManager());
-        redisSessionDAO.setExpire(5 * 60);
+        redisSessionDAO.setExpire(1800);
         redisSessionDAO.setKeyPrefix("Menu:ShiroSession");
         redisSessionDAO.setSessionIdGenerator(sessionIdGenerator());
         return redisSessionDAO;
