@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class Producer {
@@ -35,7 +36,13 @@ public class Producer {
 
         System.out.println("Sender1 : " + sendMsg);
 
-        this.rabbitTemplate1.convertAndSend("directExchange","routeKey", sendMsg);
-
+        for (;;) {
+            try {
+                this.rabbitTemplate1.convertAndSend("directExchange", "routeKey", sendMsg);
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
