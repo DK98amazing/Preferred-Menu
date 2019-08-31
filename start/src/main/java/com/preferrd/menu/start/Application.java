@@ -3,6 +3,7 @@ package com.preferrd.menu.start;
 //import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 
 import com.preferrd.menu.redis.ConfigProperties;
+import com.preferred.menu.rabbitmq.Producer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @ComponentScan({ "com.preferrd.menu.account.*", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
-                   "com.preferrd.menu.redis", "com.preferrd.menu.aop.log.*" })
+                   "com.preferrd.menu.redis", "com.preferred.menu.rabbitmq", "com.preferrd.menu.aop.log.*" })
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = { "classpath:dubbo-provider.xml" })
 @EnableCaching
@@ -32,6 +33,8 @@ public class Application {
 
     @Autowired
     private ApplicationContext applicationCtx;
+    @Autowired
+    private Producer producer;
 
     @Value("${test.name}")
     private String str;
@@ -55,9 +58,9 @@ public class Application {
                     System.out.println(beanName);
                 }
             }
-
             System.err.println("********" + ((ConfigProperties)applicationCtx.getBean("configProperties")).getHostName());
             System.err.println("********" + str);
+            producer.send();
         };
     }
 

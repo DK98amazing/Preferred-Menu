@@ -28,6 +28,7 @@
         <module>email-mgr</module>
         <module>dubbo-mgr</module>
         <module>start</module>
+        <module>rabbitmq</module>
     </modules>
 
 
