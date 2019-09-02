@@ -4,6 +4,11 @@ package com.preferrd.menu.start;
 
 import com.preferrd.menu.redis.ConfigProperties;
 import com.preferred.menu.rabbitmq.Producer;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +66,10 @@ public class Application {
             System.err.println("********" + ((ConfigProperties)applicationCtx.getBean("configProperties")).getHostName());
             System.err.println("********" + str);
             producer.send();
+            HttpGet httpGet = new HttpGet("http://localhost:8070/test/test");
+            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+            CloseableHttpResponse response = httpClient.execute(httpGet);
+            System.err.println(response.getStatusLine());
         };
     }
 
