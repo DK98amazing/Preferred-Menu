@@ -29,6 +29,7 @@
         <module>dubbo-mgr</module>
         <module>start</module>
         <module>rabbitmq</module>
+        <module>springboot-data-jpa</module>
     </modules>
 
 
