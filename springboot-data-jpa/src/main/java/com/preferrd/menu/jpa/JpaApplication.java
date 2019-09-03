@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.preferrd.menu.jpa.*", "com.preferrd.menu.security.*"})
+@ComponentScan({"com.preferrd.menu.jpa.*", "com.preferrd.menu.security.config"})
 public class JpaApplication {
     @Autowired
     private MyJpaRepository myJpaRepository;

@@ -28,10 +28,10 @@ import org.springframework.context.annotation.ImportResource;
 import java.util.Arrays;
 
 @SpringBootApplication
-@ComponentScan({ "com.preferrd.menu.account.*", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
-                   "com.preferrd.menu.redis", "com.preferred.menu.rabbitmq", "com.preferrd.menu.aop.log.*" })
+@ComponentScan({"com.preferrd.menu.account.*", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
+        "com.preferrd.menu.redis", "com.preferred.menu.rabbitmq", "com.preferrd.menu.aop.log.*", "com.preferrd.menu.security.configration"})
 @MapperScan("com.preferrd.menu.database.dao")
-@ImportResource(value = { "classpath:dubbo-provider.xml" })
+@ImportResource(value = {"classpath:dubbo-provider.xml"})
 @EnableCaching
 @EnableConfigurationProperties(ConfigProperties.class)
 public class Application {
@@ -63,13 +63,22 @@ public class Application {
                     System.out.println(beanName);
                 }
             }
-            System.err.println("********" + ((ConfigProperties)applicationCtx.getBean("configProperties")).getHostName());
+            System.err.println("********" + ((ConfigProperties) applicationCtx.getBean("configProperties")).getHostName());
             System.err.println("********" + str);
             producer.send();
-            HttpGet httpGet = new HttpGet("http://localhost:8070/test/test");
+            HttpGet httpGet = new HttpGet("http://localhost:8070/test/test2");
+            //admin1:admin1
+            httpGet.setHeader("Authorization", "Basic YWRtaW4xOmFkbWluMQ==");
             CloseableHttpClient httpClient = HttpClientBuilder.create().build();
             CloseableHttpResponse response = httpClient.execute(httpGet);
             System.err.println(response.getStatusLine());
+
+            HttpGet httpGet2 = new HttpGet("http://localhost:8070/test/test2");
+            //admin2:admin2
+            httpGet.setHeader("Authorization", "Basic YWRtaW4yOmFkbWluMg==");
+            CloseableHttpClient httpClient2 = HttpClientBuilder.create().build();
+            CloseableHttpResponse response2 = httpClient2.execute(httpGet2);
+            System.err.println(response2.getStatusLine());
         };
     }
 
