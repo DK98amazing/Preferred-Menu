@@ -27,7 +27,7 @@ public class LogAspect {
     public void pointcut() {
     }
 
-    @Around("pointcut()")
+//    @Around("pointcut()")
     public void around(ProceedingJoinPoint point) {
         System.err.println("Around切面执行");
         long beginTime = System.currentTimeMillis();
@@ -50,6 +50,7 @@ public class LogAspect {
 
     @After("pointcut()")
     public void after(JoinPoint point) {
+        saveLog(point, 0);
         System.err.println("After切面执行");
     }
 

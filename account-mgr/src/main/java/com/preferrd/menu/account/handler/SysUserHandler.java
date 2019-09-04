@@ -63,20 +63,20 @@ public class SysUserHandler {
     }
 
     @GetMapping("/getSysUser/{userId}")
-    SysUser getUserById2(@PathVariable(value = "userId",
+    String getUserById2(@PathVariable(value = "userId",
                                        required = false) String userId) {
         SysUser sysUser = null;
-        if (SecurityUtils.getSubject().hasRole("admin") & SecurityUtils.getSubject().isPermitted("all")) {
+//        if (SecurityUtils.getSubject().hasRole("admin") & SecurityUtils.getSubject().isPermitted("all")) {
             LOG.info(userId + " 认证成功");
             if (accountRedisTemplate.hasKey("sysuser: " + userId)) {
                 sysUser = (SysUser) accountRedisTemplate.opsForValue().get("sysuser: " + userId);
             } else {
                 sysUser = sysUserService.getSysUser(userId);
             }
-        } else {
-            LOG.info(userId + " 认证失败");
-        }
-        return sysUser;
+//        } else {
+//            LOG.info(userId + " 认证失败");
+//        }
+        return sysUser.toString();
     }
 
     @DeleteMapping("deleteSysUser/{userId}")
