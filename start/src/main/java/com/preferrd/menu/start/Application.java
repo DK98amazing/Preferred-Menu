@@ -28,7 +28,7 @@ import org.springframework.context.annotation.ImportResource;
 import java.util.Arrays;
 
 @SpringBootApplication
-@ComponentScan({"com.preferrd.menu.account.*", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
+@ComponentScan({"com.preferrd.menu.account.service.*", "com.preferrd.menu.account.handler", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
         "com.preferrd.menu.redis", "com.preferred.menu.rabbitmq", "com.preferrd.menu.aop.log.*", "com.preferrd.menu.security.configration"})
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = {"classpath:dubbo-provider.xml"})

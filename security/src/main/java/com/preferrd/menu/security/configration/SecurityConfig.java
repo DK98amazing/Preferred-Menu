@@ -17,12 +17,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
-    @Autowired
-    private MyDisableUrlSessionFilter myDisableUrlSessionFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterBefore(myDisableUrlSessionFilter, UsernamePasswordAuthenticationFilter.class)
+        http
                 .authorizeRequests()
                 .antMatchers("/", "/index.html").permitAll()
                 .anyRequest().authenticated()
