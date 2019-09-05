@@ -5,6 +5,9 @@ import com.preferrd.menu.aop.log.annotation.Log;
 import com.preferrd.menu.database.dao.SysUserMapper;
 import com.preferrd.menu.database.model.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +27,10 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Log(value = "getSysUser")
     @Transactional
-    //    @Cacheable(cacheNames = "userCache",
-    //               key = "#userId",
-    //               cacheManager = "dbCacheManager")
+    @Cacheable(cacheNames = "userCache",
+            key = "#userId",
+            cacheManager = "dbCacheManager",
+            sync = true)
     public SysUser getSysUser(String userId) {
         SysUser sysUser = userMapper.selectByPrimaryKey(userId);
         //        accountRedisTemplate.opsForValue().set("sysuser: " + userId, sysUser, 1, TimeUnit.HOURS);
@@ -35,6 +39,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Transactional
     @Override
+    @CachePut(cacheNames = "userCache",
+            key = "#userId",
+            cacheManager = "dbCacheManager")
     public int addSysUser(SysUser sysUser) {
         return userMapper.insert(sysUser);
     }
@@ -47,6 +54,10 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Transactional
     @Override
+    @CacheEvict(cacheNames = "userCache",
+            key = "#userId",
+            cacheManager = "dbCacheManager",
+            beforeInvocation = false)
     public int deleteSysUser(String userId) {
         return userMapper.deleteByPrimaryKey(userId);
     }
