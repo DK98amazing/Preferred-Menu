@@ -18,6 +18,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.web.client.RestTemplateCustomizer;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
@@ -26,6 +28,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 
@@ -42,6 +46,8 @@ public class Application {
     private ApplicationContext applicationCtx;
     @Autowired
     private Producer producer;
+    @Autowired
+    private RestTemplateBuilder restTemplateBuilder;
 
     @Value("${test.name}")
     private String str;
@@ -81,6 +87,10 @@ public class Application {
             CloseableHttpClient httpClient2 = HttpClientBuilder.create().build();
             CloseableHttpResponse response2 = httpClient2.execute(httpGet2);
             System.err.println(response2.getStatusLine());
+
+            RestTemplate restTemplate = restTemplateBuilder.basicAuthentication("admin2", "admin2").build();
+            ResponseEntity<String> result = restTemplate.getForEntity("http://localhost:8070/test/test", String.class);
+            System.err.println(result.getHeaders() + "\n" + result.getStatusCode() + "\n" + result.getBody());
         };
     }
     

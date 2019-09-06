@@ -17,7 +17,7 @@ public class RestController {
     private MyJpaRepository myJpaRepository;
 
     @GetMapping("/test")
-    public void test() {
+    public String test() {
         System.err.println("test");
         System.err.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
         System.err.println(((WebAuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails()).getSessionId());
@@ -33,15 +33,17 @@ public class RestController {
         System.out.println(myJpaRepository.findAll());
         myJpaRepository.deleteAll();
         System.out.println(myJpaRepository.count());
+        return "success";
     }
 
     @GetMapping("/test2")
-    public void test2() {
+    public String test2() {
         System.err.println("test2");
         Customer customer = new Customer("first", "last");
         myJpaRepository.save(customer);
         System.out.println(myJpaRepository.findAll());
         myJpaRepository.deleteAll();
         System.out.println(myJpaRepository.count());
+        return "success";
     }
 }

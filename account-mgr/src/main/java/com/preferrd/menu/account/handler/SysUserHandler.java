@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -39,6 +40,8 @@ public class SysUserHandler {
     private SysUserService sysUserService;
     @Autowired
     private RedisTemplate accountRedisTemplate;
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
     @GetMapping("/forward")
     ModelAndView home1() {
@@ -65,6 +68,7 @@ public class SysUserHandler {
     @GetMapping("/getSysUser/{userId}")
     String getUserById2(@PathVariable(value = "userId",
                                        required = false) String userId) {
+        LOG.info("sessionId: " + httpServletRequest.getSession().getId());
         SysUser sysUser = null;
 //        if (SecurityUtils.getSubject().hasRole("admin") & SecurityUtils.getSubject().isPermitted("all")) {
             LOG.info(userId + " 认证成功");
