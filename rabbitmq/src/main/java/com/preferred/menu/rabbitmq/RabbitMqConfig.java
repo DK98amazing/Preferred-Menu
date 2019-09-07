@@ -1,7 +1,5 @@
 package com.preferred.menu.rabbitmq;
 
-import com.codahale.metrics.ConsoleReporter;
-import com.codahale.metrics.MetricRegistry;
 import com.rabbitmq.client.impl.StandardMetricsCollector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +39,6 @@ public class RabbitMqConfig {
      */
     private static String exchangeName = "test_exchange";
     private static String routeKey = "test_routeKey";
-    private static MetricRegistry registry = new MetricRegistry();
-    public static StandardMetricsCollector metrics = new StandardMetricsCollector(registry);
 
     private static Logger log = LoggerFactory.getLogger(RabbitMqConfig.class);
     @Autowired
@@ -179,12 +175,6 @@ public class RabbitMqConfig {
         connectionFactory.setPublisherConfirms(true);
         connectionFactory.setPublisherReturns(true);
         connectionFactory.setConnectionTimeout(1000);
-        //FIXME:need com/codahale/metrics/MetricRegistry
-        ConsoleReporter reporter = ConsoleReporter
-                .forRegistry(registry)
-                .convertDurationsTo(TimeUnit.MILLISECONDS)
-                .build();
-        reporter.start(5, TimeUnit.MINUTES);
 //        TODO:
 //        TSL
 //        try {

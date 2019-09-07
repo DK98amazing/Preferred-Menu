@@ -36,7 +36,7 @@ import java.util.Arrays;
 @ImportResource(value = {"classpath:dubbo-provider.xml"})
 @EnableCaching
 @EnableConfigurationProperties(ConfigProperties.class)
-public class ApplicationNginxTest {
+public class Application4Nginx {
 
     @Autowired
     private ApplicationContext applicationCtx;

@@ -31,8 +31,8 @@
         <module>rabbitmq</module>
         <module>springboot-data-jpa</module>
         <module>security</module>
+        <module>admin</module>
     </modules>
-
 
 
 </project>
