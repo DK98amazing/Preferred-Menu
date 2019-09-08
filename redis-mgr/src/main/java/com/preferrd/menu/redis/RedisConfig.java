@@ -41,6 +41,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean(name = "accountRedisTemplate")
     public RedisTemplate<Object, SysUser> accountRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        redisConnectionFactory.getConnection().select(6);
         RedisTemplate<Object, SysUser> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
         Jackson2JsonRedisSerializer<SysUser> ser = new Jackson2JsonRedisSerializer<>(SysUser.class);
