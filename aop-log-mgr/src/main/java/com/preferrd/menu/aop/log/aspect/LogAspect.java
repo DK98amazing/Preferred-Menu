@@ -12,6 +12,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 
@@ -22,18 +24,20 @@ import java.util.Date;
 @Aspect
 @Component
 public class LogAspect {
+    private static final Logger LOG = LoggerFactory.getLogger(LogAspect.class);
 
     @Pointcut("@annotation(com.preferrd.menu.aop.log.annotation.Log)")
     public void pointcut() {
     }
 
-//    @Around("pointcut()")
-    public void around(ProceedingJoinPoint point) {
-        System.err.println("Around切面执行");
+    @Around("pointcut()")
+    public Object around(ProceedingJoinPoint point) {
+        LOG.warn("Around切面执行");
         long beginTime = System.currentTimeMillis();
+        Object object = null;
         try {
             // 执行方法
-            point.proceed();
+            object = point.proceed();
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -41,17 +45,17 @@ public class LogAspect {
         long time = System.currentTimeMillis() - beginTime;
         // 保存日志
         saveLog(point, time);
+        return object;
     }
 
     @Before("pointcut()")
     public void before(JoinPoint joinPoint) {
-        System.err.println("Before切面执行");
+        LOG.warn("Before切面执行");
     }
 
     @After("pointcut()")
     public void after(JoinPoint point) {
-        saveLog(point, 0);
-        System.err.println("After切面执行");
+        LOG.warn("After切面执行");
     }
 
     private void saveLog(JoinPoint joinPoint, long time) {
@@ -89,6 +93,6 @@ public class LogAspect {
         Date date = new Date();
         sysLog.setCreateTime(date);
         // 保存系统日志
-        System.err.println(sysLog.toString());
+        LOG.info(sysLog.toString());
     }
 }
