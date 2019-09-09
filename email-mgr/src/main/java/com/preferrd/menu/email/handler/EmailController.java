@@ -43,7 +43,7 @@ public class EmailController {
             message = jms.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(from);
-            helper.setTo("888888@qq.com"); // 接收地址
+            helper.setTo("1254770191@qq.com"); // 接收地址
             helper.setSubject("一封HTML格式的邮件"); // 标题
             // 带HTML格式的内容
             StringBuffer sb = new StringBuffer("<p style='color:#42b983'>使用Spring Boot发送HTML格式邮件。</p>");

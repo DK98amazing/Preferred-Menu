@@ -4,6 +4,7 @@ package com.preferrd.menu.start;
 
 import com.preferrd.menu.redis.ConfigProperties;
 import com.preferred.menu.rabbitmq.Producer;
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -35,6 +36,7 @@ import java.util.Arrays;
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = {"classpath:dubbo-provider.xml"})
 @EnableCaching
+@EnableAdminServer
 @EnableConfigurationProperties(ConfigProperties.class)
 public class Application4Nginx {
 
