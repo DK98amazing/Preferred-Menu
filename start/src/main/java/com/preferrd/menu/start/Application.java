@@ -75,14 +75,14 @@ public class Application {
             }
             LOG.warn("configProperties Bean: " + ((ConfigProperties) applicationCtx.getBean("configProperties")).getHostName());
             producer.send();
-            HttpGet httpGet = new HttpGet("http://localhost:8070/test/test2");
+            HttpGet httpGet = new HttpGet("http://localhost:8088/test/test2");
             //admin1:admin1
             httpGet.setHeader("Authorization", "Basic YWRtaW4xOmFkbWluMQ==");
             CloseableHttpClient httpClient = HttpClientBuilder.create().build();
             CloseableHttpResponse response = httpClient.execute(httpGet);
             LOG.info(String.valueOf(response.getStatusLine()));
 
-            HttpGet httpGet2 = new HttpGet("http://localhost:8070/test/test2");
+            HttpGet httpGet2 = new HttpGet("http://localhost:8088/test/test2");
             //admin2:admin2
             httpGet.setHeader("Authorization", "Basic YWRtaW4yOmFkbWluMg==");
             CloseableHttpClient httpClient2 = HttpClientBuilder.create().build();
@@ -90,7 +90,7 @@ public class Application {
             LOG.info(String.valueOf(response2.getStatusLine()));
 
             RestTemplate restTemplate = restTemplateBuilder.basicAuthentication("admin2", "admin2").build();
-            ResponseEntity<String> result = restTemplate.getForEntity("http://localhost:8070/test/test", String.class);
+            ResponseEntity<String> result = restTemplate.getForEntity("http://localhost:8088/test/test", String.class);
             LOG.info(result.getHeaders() + "\n" + result.getStatusCode() + "\n" + result.getBody());
         };
     }

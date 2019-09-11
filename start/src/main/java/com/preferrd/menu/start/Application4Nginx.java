@@ -70,14 +70,14 @@ public class Application4Nginx {
             System.err.println("********" + ((ConfigProperties) applicationCtx.getBean("configProperties")).getHostName());
             System.err.println("********" + str);
             producer.send();
-            HttpGet httpGet = new HttpGet("http://localhost:8070/test/test2");
+            HttpGet httpGet = new HttpGet("http://localhost:8088/test/test2");
             //admin1:admin1
             httpGet.setHeader("Authorization", "Basic YWRtaW4xOmFkbWluMQ==");
             CloseableHttpClient httpClient = HttpClientBuilder.create().build();
             CloseableHttpResponse response = httpClient.execute(httpGet);
             System.err.println(response.getStatusLine());
 
-            HttpGet httpGet2 = new HttpGet("http://localhost:8070/test/test2");
+            HttpGet httpGet2 = new HttpGet("http://localhost:8080/test/test2");
             //admin2:admin2
             httpGet.setHeader("Authorization", "Basic YWRtaW4yOmFkbWluMg==");
             CloseableHttpClient httpClient2 = HttpClientBuilder.create().build();
