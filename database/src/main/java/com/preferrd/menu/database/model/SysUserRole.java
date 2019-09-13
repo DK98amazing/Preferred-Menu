@@ -3,7 +3,7 @@ package com.preferrd.menu.database.model;
 import java.io.Serializable;
 
 public class SysUserRole implements Serializable {
-    private Integer id;
+    private String id;
 
     private String userId;
 
@@ -11,12 +11,12 @@ public class SysUserRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getUserId() {

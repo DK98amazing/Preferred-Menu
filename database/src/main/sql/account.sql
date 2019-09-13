@@ -1,73 +1,73 @@
-CREATE TABLE public.sysuser
+drop TABLE if EXISTS sysuser;
+CREATE TABLE sysuser
 (
-    user_id character varying NOT NULL,
-    user_name character varying NOT NULL,
-    password character varying NOT NULL,
-    email character varying,
-    phone character(11) NOT NULL,
+    user_id varchar(1024) NOT NULL PRIMARY KEY,
+    user_name varchar(1024) NOT NULL,
+    password varchar(1024) NOT NULL,
+    email varchar(1024),
+    phone varchar(11) NOT NULL,
     sex integer,
     status integer,
     last_login_time date,
     create_time date,
-    update_time date,
-    PRIMARY KEY (user_id)
-)
+    update_time date
+);
 
-INSERT INTO public.sysuser(
+INSERT INTO sysuser(
 	user_id, user_name, password, email, phone, sex, status, last_login_time, create_time, update_time)
 	VALUES ('lgy', 'lgy', 'Admin@1234', '1254770191@qq.com', '15957194307', 0, 0, now(), now(), now());
 
-CREATE TABLE public.sysrole
+drop TABLE if EXISTS sysrole;
+CREATE TABLE sysrole
 (
-    role_id character varying NOT NULL,
-    role character varying NOT NULL,
-    description character varying,
+    role_id varchar(1024) NOT NULL PRIMARY KEY,
+    role varchar(1024) NOT NULL,
+    description varchar(1024),
     status integer,
-    selected integer,
-    PRIMARY KEY (role_id)
-)
+    selected integer
+);
 
-INSERT INTO public.sysrole(
+INSERT INTO sysrole(
 	role_id, role, description, status, selected)
 	VALUES ('admin', 'admin', 'admin', 0, 0);
 
-CREATE TABLE public.sys_user_role
+drop TABLE if EXISTS sys_user_role;
+CREATE TABLE sys_user_role
 (
-    id integer NOT NULL,
-    user_id character varying COLLATE pg_catalog."default" NOT NULL,
-    role_id character varying COLLATE pg_catalog."default",
-    PRIMARY KEY (id)
-)
+    id varchar(1024) NOT NULL PRIMARY KEY,
+    user_id varchar(1024) NOT NULL,
+    role_id varchar(1024)
+);
 
-INSERT INTO public.sys_user_role(
+INSERT INTO sys_user_role(
 	id, user_id, role_id)
-	VALUES ('sys_user_role_1', 'lgy', 'admin');
+	VALUES ('lgy', 'lgy', 'admin');
 
-CREATE TABLE public.sysresource
+drop TABLE if EXISTS sysresource;
+CREATE TABLE sysresource
 (
-    resource_id character varying COLLATE pg_catalog."default" NOT NULL,
-    name character varying COLLATE pg_catalog."default" NOT NULL,
-    description character varying COLLATE pg_catalog."default",
-    url character varying COLLATE pg_catalog."default",
-    permission character varying COLLATE pg_catalog."default",
+    resource_id varchar(1024) NOT NULL primary key,
+    name varchar(1024) NOT NULL,
+    description varchar(1024),
+    url varchar(1024),
+    permission varchar(1024),
 	type integer,
 	priority integer,
-    status integer,
-	primary key (resource_id)
-)
+    status integer
+);
 
-INSERT INTO public.sysresource(
+INSERT INTO sysresource(
 	resource_id, name, description, url, permission, type, priority, status)
 	VALUES ('all', 'all', 'all', 'www.baidu.com', 'all', 0, 0, 0);
 
-CREATE TABLE public.sysrole_resource
+drop TABLE if EXISTS sys_role_resource;
+CREATE TABLE sys_role_resource
 (
-    id serial NOT NULL ,
-    role_id character varying COLLATE pg_catalog."default" NOT NULL,
-    resource_id character varying COLLATE pg_catalog."default",
-    PRIMARY KEY (id)
-)
+    id varchar(1024) NOT NULL PRIMARY KEY,
+    role_id varchar(1024) NOT NULL,
+    resource_id varchar(1024)
+);
 
-INSERT INTO public.sys_role_resource(
+INSERT INTO sys_role_resource(
 	id, role_id, resource_id)
-	VALUES ('sys_role_resource_1', 'admin', 'all');
+	VALUES ('admin', 'admin', 'all');

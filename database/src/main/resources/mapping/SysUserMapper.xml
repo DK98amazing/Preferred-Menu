@@ -6,7 +6,7 @@
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="last_login_time" jdbcType="DATE" property="lastLoginTime" />
@@ -29,13 +29,13 @@
   </delete>
   <insert id="insert" parameterType="com.preferrd.menu.database.model.SysUser">
     insert into sysuser (user_id, user_name, password, 
-      email, phone, sex, status, 
-      last_login_time, create_time, update_time
-      )
+      email, phone, sex, 
+      status, last_login_time, create_time, 
+      update_time)
     values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, #{sex,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{lastLoginTime,jdbcType=DATE}, #{createTime,jdbcType=DATE}, #{updateTime,jdbcType=DATE}
-      )
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{lastLoginTime,jdbcType=DATE}, #{createTime,jdbcType=DATE}, 
+      #{updateTime,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.preferrd.menu.database.model.SysUser">
     insert into sysuser
@@ -85,7 +85,7 @@
         #{email,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-        #{phone,jdbcType=CHAR},
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
         #{sex,jdbcType=INTEGER},
@@ -117,7 +117,7 @@
         email = #{email,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-        phone = #{phone,jdbcType=CHAR},
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
         sex = #{sex,jdbcType=INTEGER},
@@ -142,7 +142,7 @@
     set user_name = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=CHAR},
+      phone = #{phone,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       last_login_time = #{lastLoginTime,jdbcType=DATE},

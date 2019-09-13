@@ -5,13 +5,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface SysRoleResourceMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
 
     int insert(SysRoleResource record);
 
     int insertSelective(SysRoleResource record);
 
-    SysRoleResource selectByPrimaryKey(String roleId);
+    SysRoleResource selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(SysRoleResource record);
 

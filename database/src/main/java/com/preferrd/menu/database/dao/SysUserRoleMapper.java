@@ -5,13 +5,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface SysUserRoleMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
 
     int insert(SysUserRole record);
 
     int insertSelective(SysUserRole record);
 
-    SysUserRole selectByPrimaryKey(String userId);
+    SysUserRole selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(SysUserRole record);
 
