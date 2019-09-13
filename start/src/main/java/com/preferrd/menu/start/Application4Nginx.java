@@ -3,6 +3,7 @@ package com.preferrd.menu.start;
 //import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 
 import com.preferrd.menu.redis.ConfigProperties;
+import com.preferrd.menu.start.exception.MyControllerAdvice;
 import com.preferred.menu.rabbitmq.Producer;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.apache.http.client.HttpClient;
@@ -31,10 +32,9 @@ import org.springframework.context.annotation.ImportResource;
 import java.util.Arrays;
 
 @SpringBootApplication
-@ComponentScan({"com.preferrd.menu.account.service.*", "com.preferrd.menu.account.handler", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
+@ComponentScan(value = {"com.preferrd.menu.account.service.*", "com.preferrd.menu.account.handler", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
         "com.preferrd.menu.redis", "com.preferred.menu.rabbitmq", "com.preferrd.menu.aop.log.*", "com.preferrd.menu.security.configration"
-        , "com.prefrred.exception.myenum"
-})
+}, basePackageClasses = {MyControllerAdvice.class})
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = {"classpath:dubbo-provider.xml"})
 @EnableCaching

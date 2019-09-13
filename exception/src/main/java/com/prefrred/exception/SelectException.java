@@ -1,4 +1,4 @@
-package com.prefrred.exception.myenum;
+package com.prefrred.exception;
 
 public class SelectException extends RuntimeException {
 

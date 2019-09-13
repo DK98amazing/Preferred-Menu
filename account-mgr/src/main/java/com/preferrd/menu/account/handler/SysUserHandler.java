@@ -5,7 +5,7 @@ package com.preferrd.menu.account.handler;
 import com.preferrd.menu.account.service.SysUserService;
 import com.preferrd.menu.account.shiro.MyShiroRealm;
 import com.preferrd.menu.database.model.SysUser;
-import com.prefrred.exception.myenum.SelectException;
+import com.prefrred.exception.SelectException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
