@@ -5,6 +5,7 @@ package com.preferrd.menu.account.handler;
 import com.preferrd.menu.account.service.SysUserService;
 import com.preferrd.menu.account.shiro.MyShiroRealm;
 import com.preferrd.menu.database.model.SysUser;
+import com.prefrred.exception.myenum.SelectException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -61,31 +62,31 @@ public class SysUserHandler {
 
     @GetMapping("/getSysUser")
     SysUser getUserById(@RequestParam(value = "userId",
-                                      required = false) String userId) {
+            required = false) String userId) {
         return sysUserService.getSysUser(userId);
     }
 
     @GetMapping("/getSysUser/{userId}")
     String getUserById2(@PathVariable(value = "userId",
-                                       required = false) String userId) {
+            required = false) String userId) {
         LOG.info("sessionId: " + httpServletRequest.getSession().getId());
         SysUser sysUser = null;
 //        if (SecurityUtils.getSubject().hasRole("admin") & SecurityUtils.getSubject().isPermitted("all")) {
-            LOG.info(userId + " 认证成功");
-            if (accountRedisTemplate.hasKey("sysuser: " + userId)) {
-                sysUser = (SysUser) accountRedisTemplate.opsForValue().get("sysuser: " + userId);
-            } else {
-                sysUser = sysUserService.getSysUser(userId);
-            }
-//        } else {
-//            LOG.info(userId + " 认证失败");
-//        }
+        LOG.info(userId + " 认证成功");
+        if (accountRedisTemplate.hasKey("sysuser: " + userId)) {
+            sysUser = (SysUser) accountRedisTemplate.opsForValue().get("sysuser: " + userId);
+        } else {
+            sysUser = sysUserService.getSysUser(userId);
+        }
+        if (null == sysUser) {
+            throw new SelectException("用户未找到");
+        }
         return sysUser.toString();
     }
 
     @DeleteMapping("deleteSysUser/{userId}")
     String deleteSysUser(@PathVariable(value = "userId",
-                                       required = false) String userId) {
+            required = false) String userId) {
         int result = sysUserService.deleteSysUser(userId);
         if (result == 1) {
             return "userId: " + userId;
@@ -98,9 +99,9 @@ public class SysUserHandler {
     ModelAndView updateSysUser(@RequestBody SysUser sysUser) {
         ModelAndView modelAndView = new ModelAndView();
         if (null == sysUser.getUserName() && null == sysUser.getCreateTime() && null == sysUser.getUpdateTime()
-            && null == sysUser.getEmail() && null == sysUser.getPassword() && null == sysUser.getPhone()
-            && null == sysUser.getLastLoginTime() && null == sysUser.getSex() && null == sysUser.getStatus()
-            && null == sysUser.getUserId()) {
+                && null == sysUser.getEmail() && null == sysUser.getPassword() && null == sysUser.getPhone()
+                && null == sysUser.getLastLoginTime() && null == sysUser.getSex() && null == sysUser.getStatus()
+                && null == sysUser.getUserId()) {
             modelAndView.addObject("result", 1);
             modelAndView.setViewName("redirect:/sysuser/getSysUser?userId=" + sysUser.getUserId());
         } else {
@@ -109,7 +110,7 @@ public class SysUserHandler {
                 modelAndView.addObject("result", result);
                 modelAndView.setViewName("redirect:/sysuser/getSysUser?userId=" + sysUser.getUserId());
                 DefaultWebSecurityManager securityManager =
-                    (DefaultWebSecurityManager) SecurityUtils.getSecurityManager();
+                        (DefaultWebSecurityManager) SecurityUtils.getSecurityManager();
                 MyShiroRealm myShiroRealm = (MyShiroRealm) securityManager.getRealms().iterator().next();
                 myShiroRealm.clearAuthorizationByUserId(SecurityUtils.getSubject().getPrincipals());
             } else {
@@ -134,7 +135,7 @@ public class SysUserHandler {
         //添加用户认证信息
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken =
-            new UsernamePasswordToken(map.get("username").toString(), map.get("password").toString());
+                new UsernamePasswordToken(map.get("username").toString(), map.get("password").toString());
         usernamePasswordToken.setRememberMe(true);
         Session session = subject.getSession();
         //设置过期时间为10小时

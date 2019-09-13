@@ -28,9 +28,9 @@ public class SysUserServiceImpl implements SysUserService {
     @Log(value = "getSysUser")
     @Transactional
     @Cacheable(cacheNames = "userCache",
+            unless = "#result == null",
             key = "#userId",
-            cacheManager = "dbCacheManager",
-            sync = true)
+            cacheManager = "dbCacheManager")
     public SysUser getSysUser(String userId) {
         SysUser sysUser = userMapper.selectByPrimaryKey(userId);
         //        accountRedisTemplate.opsForValue().set("sysuser: " + userId, sysUser, 1, TimeUnit.HOURS);

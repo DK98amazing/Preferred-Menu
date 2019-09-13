@@ -32,6 +32,7 @@
         <module>springboot-data-jpa</module>
         <module>security</module>
         <module>admin</module>
+        <module>exception</module>
     </modules>
 
 
