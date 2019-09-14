@@ -34,6 +34,7 @@ import java.util.Arrays;
 @SpringBootApplication
 @ComponentScan(value = {"com.preferrd.menu.account.service.*", "com.preferrd.menu.account.handler", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
         "com.preferrd.menu.redis", "com.preferred.menu.rabbitmq", "com.preferrd.menu.aop.log.*", "com.preferrd.menu.security.configration"
+        , "com.preferrd.menu.zookeeper.*"
 }, basePackageClasses = {MyControllerAdvice.class})
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = {"classpath:dubbo-provider.xml"})

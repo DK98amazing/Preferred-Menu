@@ -9,6 +9,8 @@
 /**
  * TODO 待解决问题
  * Spring boot Metrics度量以及集成metrics到Rabbitmq.
- * websocket
+ * jwt
+ * redis分布式锁（临时节点）
+ * socketJS
  *
  */

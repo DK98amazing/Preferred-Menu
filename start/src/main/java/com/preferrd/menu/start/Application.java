@@ -40,6 +40,7 @@ import java.util.concurrent.TimeUnit;
         "com.preferrd.menu.redis", "com.preferred.menu.rabbitmq", "com.preferrd.menu.aop.log.*", "com.preferrd.menu.security.configration"
 //        ,"com.preferrd.menu.admin"
         , "com.preferred.menu.websocket.*"
+        , "com.preferrd.menu.zookeeper.*"
 }, basePackageClasses = {MyControllerAdvice.class})
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = {"classpath:dubbo-provider.xml"})
