@@ -30,7 +30,7 @@ public class LogAspect {
     public void pointcut() {
     }
 
-    @Around("pointcut()")
+//    @Around("pointcut()")
     public Object around(ProceedingJoinPoint point) {
         LOG.warn("Around切面执行");
         long beginTime = System.currentTimeMillis();

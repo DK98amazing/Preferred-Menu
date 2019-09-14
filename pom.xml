@@ -22,17 +22,18 @@
         <module>preferred-menu-parent</module>
         <module>common</module>
         <module>aop-log-mgr</module>
-        <module>account-mgr</module>
         <module>database</module>
+        <module>exception</module>
         <module>redis-mgr</module>
+        <module>account-mgr</module>
         <module>email-mgr</module>
         <module>dubbo-mgr</module>
-        <module>start</module>
-        <module>rabbitmq</module>
-        <module>springboot-data-jpa</module>
         <module>security</module>
+        <module>rabbitmq</module>
+        <module>websocket</module>
         <module>admin</module>
-        <module>exception</module>
+        <module>start</module>
+        <module>springboot-data-jpa</module>
     </modules>
 
 

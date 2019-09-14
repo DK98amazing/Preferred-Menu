@@ -5,7 +5,7 @@ package com.preferrd.menu.start;
 import com.preferrd.menu.redis.ConfigProperties;
 import com.preferrd.menu.start.exception.MyControllerAdvice;
 import com.preferred.menu.rabbitmq.Producer;
-import com.prefrred.exception.SelectException;
+import com.preferred.menu.websocket.config.WebSocketServer;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -31,12 +31,15 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 @ComponentScan(value = {"com.preferrd.menu.account.service.*", "com.preferrd.menu.account.handler", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
         "com.preferrd.menu.redis", "com.preferred.menu.rabbitmq", "com.preferrd.menu.aop.log.*", "com.preferrd.menu.security.configration"
 //        ,"com.preferrd.menu.admin"
+        , "com.preferred.menu.websocket.*"
 }, basePackageClasses = {MyControllerAdvice.class})
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = {"classpath:dubbo-provider.xml"})
@@ -94,6 +97,19 @@ public class Application {
             RestTemplate restTemplate = restTemplateBuilder.basicAuthentication("admin2", "admin2").build();
             ResponseEntity<String> result = restTemplate.getForEntity("http://localhost:8088/test/test", String.class);
             LOG.info(result.getHeaders() + "\n" + result.getStatusCode() + "\n" + result.getBody());
+
+            new Thread(() -> {
+                LOG.info("开始websocket发送");
+                for (int i = 0; ; i++) {
+                    try {
+                        TimeUnit.SECONDS.sleep(10);
+                        WebSocketServer.sendInfo("new Message for websocket", String.valueOf(i));
+                    } catch (InterruptedException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
         };
     }
 
