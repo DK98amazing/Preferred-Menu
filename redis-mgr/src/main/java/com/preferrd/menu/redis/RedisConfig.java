@@ -89,6 +89,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     /**
      * redis-cache configuration
      */
+    @SuppressWarnings("unchecked")
     @Bean(name = "dbCacheManager")
     public CacheManager cacheManager(RedisConnectionFactory factory) {
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();

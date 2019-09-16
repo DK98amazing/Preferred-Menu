@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +44,15 @@ public class SysUserHandler {
     private RedisTemplate accountRedisTemplate;
     @Autowired
     private HttpServletRequest httpServletRequest;
+
+    @GetMapping("/myindex")
+    public ModelAndView toindex(ModelAndView modelAndView) {
+        modelAndView.addObject("name", "李国瑶");
+        modelAndView.addObject("sex", "男");
+        modelAndView.addObject("book", new String[]{"语文", "数学", "英语"});
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
 
     @GetMapping("/forward")
     ModelAndView home1() {
