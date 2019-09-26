@@ -5,8 +5,11 @@ package com.preferrd.menu.start;
 import com.preferrd.menu.redis.ConfigProperties;
 import com.preferrd.menu.start.exception.MyControllerAdvice;
 import com.preferred.menu.rabbitmq.Producer;
+import com.preferred.menu.vertx.VerticleHttp;
 import com.preferred.menu.websocket.config.WebSocketServer;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
+import io.vertx.core.Verticle;
+import io.vertx.core.Vertx;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -15,6 +18,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -41,6 +45,7 @@ import java.util.concurrent.TimeUnit;
 //        ,"com.preferrd.menu.admin"
         , "com.preferred.menu.websocket.*"
         , "com.preferrd.menu.zookeeper.*"
+        , "com.preferred.menu.vertx"
 }, basePackageClasses = {MyControllerAdvice.class})
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = {"classpath:dubbo-provider.xml"})
@@ -56,6 +61,11 @@ public class Application {
     private Producer producer;
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
+    @Autowired
+    private VerticleHttp verticleHttp;
+    @Autowired
+    @Qualifier(value = "singleVertx")
+    private Vertx vertx;
 
     @Value("${test.name}")
     private String str;
@@ -98,6 +108,8 @@ public class Application {
             RestTemplate restTemplate = restTemplateBuilder.basicAuthentication("admin2", "admin2").build();
             ResponseEntity<String> result = restTemplate.getForEntity("http://localhost:8088/test/test", String.class);
             LOG.info(result.getHeaders() + "\n" + result.getStatusCode() + "\n" + result.getBody());
+
+            vertx.deployVerticle(verticleHttp);
 
             new Thread(() -> {
                 LOG.info("开始websocket发送");

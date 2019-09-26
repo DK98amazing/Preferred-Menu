@@ -35,6 +35,7 @@
         <module>start</module>
         <module>springboot-data-jpa</module>
         <module>zookeeper</module>
+        <module>vertx</module>
     </modules>
 
 

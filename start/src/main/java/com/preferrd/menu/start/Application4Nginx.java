@@ -5,7 +5,9 @@ package com.preferrd.menu.start;
 import com.preferrd.menu.redis.ConfigProperties;
 import com.preferrd.menu.start.exception.MyControllerAdvice;
 import com.preferred.menu.rabbitmq.Producer;
+import com.preferred.menu.vertx.VerticleHttp;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
+import io.vertx.core.Vertx;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -14,6 +16,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -35,6 +38,7 @@ import java.util.Arrays;
 @ComponentScan(value = {"com.preferrd.menu.account.service.*", "com.preferrd.menu.account.handler", "com.preferrd.menu.database.*", "com.preferrd.menu.email.*",
         "com.preferrd.menu.redis", "com.preferred.menu.rabbitmq", "com.preferrd.menu.aop.log.*", "com.preferrd.menu.security.configration"
         , "com.preferrd.menu.zookeeper.*"
+        , "com.preferred.menu.vertx"
 }, basePackageClasses = {MyControllerAdvice.class})
 @MapperScan("com.preferrd.menu.database.dao")
 @ImportResource(value = {"classpath:dubbo-provider.xml"})
@@ -47,6 +51,11 @@ public class Application4Nginx {
     private ApplicationContext applicationCtx;
     @Autowired
     private Producer producer;
+    @Autowired
+    private VerticleHttp verticleHttp;
+    @Autowired
+    @Qualifier(value = "singleVertx")
+    private Vertx vertx;
 
     @Value("${test.name}")
     private String str;
@@ -86,6 +95,8 @@ public class Application4Nginx {
             CloseableHttpClient httpClient2 = HttpClientBuilder.create().build();
             CloseableHttpResponse response2 = httpClient2.execute(httpGet2);
             System.err.println(response2.getStatusLine());
+
+            vertx.deployVerticle(verticleHttp);
         };
     }
 
