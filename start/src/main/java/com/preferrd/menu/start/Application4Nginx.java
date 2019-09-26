@@ -6,28 +6,25 @@ import com.preferrd.menu.redis.ConfigProperties;
 import com.preferrd.menu.start.exception.MyControllerAdvice;
 import com.preferred.menu.rabbitmq.Producer;
 import com.preferred.menu.vertx.VerticleHttp;
+import com.preferred.menu.vertx.VerticleHttp2;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import io.vertx.core.Vertx;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
@@ -52,10 +49,15 @@ public class Application4Nginx {
     @Autowired
     private Producer producer;
     @Autowired
+    private VerticleHttp2 verticleHttp2;
+    @Autowired
     private VerticleHttp verticleHttp;
     @Autowired
     @Qualifier(value = "singleVertx")
     private Vertx vertx;
+    @Autowired
+    @Qualifier(value = "clusterVertx")
+    private Vertx vertx2;
 
     @Value("${test.name}")
     private String str;
@@ -96,7 +98,8 @@ public class Application4Nginx {
             CloseableHttpResponse response2 = httpClient2.execute(httpGet2);
             System.err.println(response2.getStatusLine());
 
-            vertx.deployVerticle(verticleHttp);
+            vertx.deployVerticle(verticleHttp2);
+            vertx2.deployVerticle(verticleHttp);
         };
     }
 

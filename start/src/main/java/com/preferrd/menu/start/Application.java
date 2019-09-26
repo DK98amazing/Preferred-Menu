@@ -6,6 +6,7 @@ import com.preferrd.menu.redis.ConfigProperties;
 import com.preferrd.menu.start.exception.MyControllerAdvice;
 import com.preferred.menu.rabbitmq.Producer;
 import com.preferred.menu.vertx.VerticleHttp;
+import com.preferred.menu.vertx.VerticleHttp2;
 import com.preferred.menu.websocket.config.WebSocketServer;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import io.vertx.core.Verticle;
@@ -62,10 +63,15 @@ public class Application {
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
     @Autowired
+    private VerticleHttp2 verticleHttp2;
+    @Autowired
     private VerticleHttp verticleHttp;
     @Autowired
     @Qualifier(value = "singleVertx")
     private Vertx vertx;
+    @Autowired
+    @Qualifier(value = "clusterVertx")
+    private Vertx vertx2;
 
     @Value("${test.name}")
     private String str;
@@ -109,13 +115,14 @@ public class Application {
             ResponseEntity<String> result = restTemplate.getForEntity("http://localhost:8088/test/test", String.class);
             LOG.info(result.getHeaders() + "\n" + result.getStatusCode() + "\n" + result.getBody());
 
+            vertx.deployVerticle(verticleHttp2);
             vertx.deployVerticle(verticleHttp);
 
             new Thread(() -> {
                 LOG.info("开始websocket发送");
                 for (int i = 0; ; i++) {
                     try {
-                        TimeUnit.SECONDS.sleep(10);
+                        TimeUnit.MINUTES.sleep(10);
                         WebSocketServer.sendInfo("new Message for websocket", String.valueOf(i));
                     } catch (InterruptedException | IOException e) {
                         e.printStackTrace();

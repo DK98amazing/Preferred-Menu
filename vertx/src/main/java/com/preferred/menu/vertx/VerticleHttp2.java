@@ -15,10 +15,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class VerticleHttp extends AbstractVerticle {
+public class VerticleHttp2 extends AbstractVerticle {
 
     @Autowired
-    @Qualifier(value = "clusterVertx")
+    @Qualifier(value = "singleVertx")
     private Vertx vertx;
 
     @Override
@@ -51,9 +51,9 @@ public class VerticleHttp extends AbstractVerticle {
             System.err.println(event.failure());
         });
         HttpServerOptions httpServerOptions = new HttpServerOptions().setHost("127.0.0.1")
-                .setPort(9998).setTcpNoDelay(true);
+                .setPort(9996).setTcpNoDelay(true);
         HttpServer server = vertx.createHttpServer(httpServerOptions).requestHandler(router);
-        server.listen(9999);
+        server.listen(9997);
         startPromise.complete();
     }
 }
