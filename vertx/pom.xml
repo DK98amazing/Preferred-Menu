@@ -15,17 +15,17 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-            <version>3.8.1</version>
+            <version>3.8.0</version>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-web</artifactId>
-            <version>3.8.1</version>
+            <version>3.8.0</version>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
-            <artifactId>vertx-hazelcast</artifactId>
-            <version>3.8.1</version>
+            <artifactId>vertx-zookeeper</artifactId>
+            <version>3.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
