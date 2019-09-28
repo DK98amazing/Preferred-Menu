@@ -9,7 +9,6 @@ import com.preferred.menu.vertx.VerticleHttp;
 import com.preferred.menu.vertx.VerticleHttp2;
 import com.preferred.menu.websocket.config.WebSocketServer;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
-import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -69,9 +68,9 @@ public class Application {
     @Autowired
     @Qualifier(value = "singleVertx")
     private Vertx vertx;
-    @Autowired
-    @Qualifier(value = "clusterVertx")
-    private Vertx vertx2;
+//    @Autowired
+//    @Qualifier(value = "clusterVertx")
+//    private Vertx vertx2;
 
     @Value("${test.name}")
     private String str;
@@ -116,7 +115,7 @@ public class Application {
             LOG.info(result.getHeaders() + "\n" + result.getStatusCode() + "\n" + result.getBody());
 
             vertx.deployVerticle(verticleHttp2);
-            vertx.deployVerticle(verticleHttp);
+//            vertx.deployVerticle(verticleHttp);
 
             new Thread(() -> {
                 LOG.info("开始websocket发送");

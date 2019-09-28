@@ -55,9 +55,9 @@ public class Application4Nginx {
     @Autowired
     @Qualifier(value = "singleVertx")
     private Vertx vertx;
-    @Autowired
-    @Qualifier(value = "clusterVertx")
-    private Vertx vertx2;
+//    @Autowired
+//    @Qualifier(value = "clusterVertx")
+//    private Vertx vertx2;
 
     @Value("${test.name}")
     private String str;
@@ -99,7 +99,7 @@ public class Application4Nginx {
             System.err.println(response2.getStatusLine());
 
             vertx.deployVerticle(verticleHttp2);
-            vertx2.deployVerticle(verticleHttp);
+//            vertx2.deployVerticle(verticleHttp);
         };
     }
 

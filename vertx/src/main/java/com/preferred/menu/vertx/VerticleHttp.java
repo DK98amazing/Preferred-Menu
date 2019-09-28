@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class VerticleHttp extends AbstractVerticle {
 
-    @Autowired
-    @Qualifier(value = "clusterVertx")
-    private Vertx vertx;
+//    @Autowired
+//    @Qualifier(value = "clusterVertx")
+//    private Vertx vertx;
 
     @Override
     public void start(Promise<Void> startPromise) throws Exception {
