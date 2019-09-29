@@ -36,6 +36,7 @@
         <module>springboot-data-jpa</module>
         <module>zookeeper</module>
         <module>vertx</module>
+        <module>springboot-clustering-hazelcast</module>
     </modules>
 
 
