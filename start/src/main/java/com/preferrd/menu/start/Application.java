@@ -23,15 +23,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -71,6 +74,17 @@ public class Application {
 //    @Autowired
 //    @Qualifier(value = "clusterVertx")
 //    private Vertx vertx2;
+
+    @EventListener
+    public void eventListener(ApplicationReadyEvent event) {
+        applicationCtx.publishEvent(new myEvent("sss"));
+        LOG.error("############################### init: " + event.toString());
+    }
+
+    @EventListener
+    public void eventListen(myEvent s) {
+        LOG.error("############################### String: " + s);
+    }
 
     @Value("${test.name}")
     private String str;
@@ -136,6 +150,13 @@ public class Application {
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
         return factory -> {
         };
+    }
+
+    public static class myEvent extends ApplicationEvent {
+
+        myEvent(Object source) {
+            super(source);
+        }
     }
 
 }
