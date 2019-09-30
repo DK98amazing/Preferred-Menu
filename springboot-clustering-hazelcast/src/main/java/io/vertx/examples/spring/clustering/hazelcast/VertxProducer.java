@@ -34,6 +34,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -54,7 +56,7 @@ public class VertxProducer {
   private Vertx vertx;
 
   @PostConstruct
-  void init() throws ExecutionException, InterruptedException {
+  void init() throws ExecutionException, InterruptedException, SocketException, UnknownHostException {
 
 
     MetricsOptions metricsOptions = new DropwizardMetricsOptions()
@@ -72,7 +74,7 @@ public class VertxProducer {
 
     EventBusOptions eventBusOptions = new EventBusOptions()
         .setClustered(true)
-        .setHost("10.0.12.61")
+        .setHost(IpUtil.getLocalIP())
         .setConnectTimeout(10 * 1000);
 
     VertxOptions options = new VertxOptions()
