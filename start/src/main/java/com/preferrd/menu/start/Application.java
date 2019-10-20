@@ -8,6 +8,8 @@ import com.preferred.menu.rabbitmq.Producer;
 import com.preferred.menu.vertx.VerticleHttp;
 import com.preferred.menu.vertx.VerticleHttp2;
 import com.preferred.menu.websocket.config.WebSocketServer;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import io.vertx.core.Vertx;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -129,6 +131,13 @@ public class Application {
             RestTemplate restTemplate = restTemplateBuilder.basicAuthentication("admin2", "admin2").build();
             ResponseEntity<String> result = restTemplate.getForEntity("http://localhost:8088/test/test", String.class);
             LOG.info(result.getHeaders() + "\n" + result.getStatusCode() + "\n" + result.getBody());
+
+            Client client = Client.create();
+            client.setConnectTimeout(10 * 1000);
+            client.setReadTimeout(10 * 1000);
+            client.addFilter(new HTTPBasicAuthFilter("admin2", "admin2"));
+            String resultJersey = client.resource("http://localhost:8088/test/test").get(String.class);
+            LOG.info(resultJersey);
 
             vertx.deployVerticle(verticleHttp2);
 //            vertx.deployVerticle(verticleHttp);
