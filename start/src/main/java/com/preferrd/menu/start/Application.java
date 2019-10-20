@@ -29,6 +29,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Bean;
@@ -55,6 +56,7 @@ import java.util.concurrent.TimeUnit;
 @EnableCaching
 @EnableAdminServer
 @EnableConfigurationProperties(ConfigProperties.class)
+@EnableEurekaServer
 public class Application {
     private static Logger LOG = LoggerFactory.getLogger(Application.class);
 
