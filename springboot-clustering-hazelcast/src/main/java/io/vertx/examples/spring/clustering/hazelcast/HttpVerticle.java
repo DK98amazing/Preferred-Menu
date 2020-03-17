@@ -16,11 +16,9 @@
 
 package io.vertx.examples.spring.clustering.hazelcast;
 
-import com.sun.jmx.snmp.ThreadContext;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import org.slf4j.Logger;

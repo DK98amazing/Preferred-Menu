@@ -59,11 +59,11 @@ public class VertxClusterHelper extends AbstractVerticle {
 
     @Override
     public void stop() throws Exception {
-      System.out.println(this.deploymentID() + "停止了");
-      super.stop();
+        System.out.println(this.deploymentID() + "停止了");
+        super.stop();
     }
 
-  /***
+    /***
      * @Description 方法路由器，从Message的hearder方法里取method的值，分发给对应方法。
      * @Params [stringMessage]
      * @Returns void

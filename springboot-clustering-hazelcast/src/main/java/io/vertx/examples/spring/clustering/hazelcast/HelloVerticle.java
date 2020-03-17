@@ -6,25 +6,23 @@ import io.vertx.core.impl.VertxImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.UUID;
-
 /**
  * @author Thomas Segismont
  */
 public class HelloVerticle extends AbstractVerticle {
 
-  public static final String HELLO = "hello";
-  Logger log = LoggerFactory.getLogger(this.getClass());
+    public static final String HELLO = "hello";
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
-  @Override
-  public void start(Future<Void> startFuture) throws Exception {
-    log.info("hello start...");
-    vertx.eventBus().<String>consumer(HELLO, message -> {
-      log.info("hello 收到" + message.body());
-      VertxImpl vertxImp = (VertxImpl) vertx;
-      String id = vertxImp.getClusterManager().getNodeID();
-      message.reply(id +" replay" + message.body());
-    });
+    @Override
+    public void start(Future<Void> startFuture) throws Exception {
+        log.info("hello start...");
+        vertx.eventBus().<String>consumer(HELLO, message -> {
+            log.info("hello 收到" + message.body());
+            VertxImpl vertxImp = (VertxImpl) vertx;
+            String id = vertxImp.getClusterManager().getNodeID();
+            message.reply(id + " replay" + message.body());
+        });
 //      .completionHandler(startFuture);
-  }
+    }
 }

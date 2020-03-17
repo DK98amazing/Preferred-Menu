@@ -21,7 +21,6 @@ import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBusOptions;
 import io.vertx.core.http.HttpServerOptions;
-import io.vertx.core.logging.LoggerFactory;
 import io.vertx.core.metrics.MetricsOptions;
 import io.vertx.ext.dropwizard.DropwizardMetricsOptions;
 import io.vertx.micrometer.MicrometerMetricsOptions;
@@ -33,7 +32,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.concurrent.CompletableFuture;
@@ -50,39 +48,39 @@ import java.util.concurrent.ExecutionException;
 @Component
 public class VertxProducer {
 
-  @Autowired
-  HazelcastInstance hazelcastInstance;
+    @Autowired
+    HazelcastInstance hazelcastInstance;
 
-  private Vertx vertx;
+    private Vertx vertx;
 
-  @PostConstruct
-  void init() throws ExecutionException, InterruptedException, SocketException, UnknownHostException {
+    @PostConstruct
+    void init() throws ExecutionException, InterruptedException, SocketException, UnknownHostException {
 
 
-    MetricsOptions metricsOptions = new DropwizardMetricsOptions()
-      .setEnabled(true)
-      .setJmxEnabled(true)
-      .setJmxDomain("vertx-metrics");
+        MetricsOptions metricsOptions = new DropwizardMetricsOptions()
+                .setEnabled(true)
+                .setJmxEnabled(true)
+                .setJmxDomain("vertx-metrics");
 
-    MicrometerMetricsOptions micrometerMetricsOptions = new MicrometerMetricsOptions()
-        .setPrometheusOptions(new VertxPrometheusOptions()
-        .setEnabled(true)
-        .setStartEmbeddedServer(true)
-        .setEmbeddedServerOptions(new HttpServerOptions().setPort(8080))
-        .setEmbeddedServerEndpoint("/metrics/vertx"))
-        .setEnabled(true);
+        MicrometerMetricsOptions micrometerMetricsOptions = new MicrometerMetricsOptions()
+                .setPrometheusOptions(new VertxPrometheusOptions()
+                        .setEnabled(true)
+                        .setStartEmbeddedServer(true)
+                        .setEmbeddedServerOptions(new HttpServerOptions().setPort(8080))
+                        .setEmbeddedServerEndpoint("/metrics/vertx"))
+                .setEnabled(true);
 
-    EventBusOptions eventBusOptions = new EventBusOptions()
-        .setClustered(true)
-        .setHost(IpUtil.getLocalIP())
-        .setConnectTimeout(10 * 1000);
+        EventBusOptions eventBusOptions = new EventBusOptions()
+                .setClustered(true)
+                .setHost(IpUtil.getLocalIP())
+                .setConnectTimeout(10 * 1000);
 
-    VertxOptions options = new VertxOptions()
-        .setClusterManager(new HazelcastClusterManager(hazelcastInstance))
-        .setEventBusOptions(eventBusOptions)
-        .setHAEnabled(true).setHAGroup("MI")
-        .setEventBusOptions(eventBusOptions)
-        .setMetricsOptions(metricsOptions);
+        VertxOptions options = new VertxOptions()
+                .setClusterManager(new HazelcastClusterManager(hazelcastInstance))
+                .setEventBusOptions(eventBusOptions)
+                .setHAEnabled(true).setHAGroup("MI")
+                .setEventBusOptions(eventBusOptions)
+                .setMetricsOptions(metricsOptions);
 //
 //    Vertx.clusteredVertx(options, ar -> {
 //      if (ar.succeeded()) {
@@ -96,33 +94,33 @@ public class VertxProducer {
 //      .setClusterManager(new HazelcastClusterManager(hazelcastInstance))
 //      .setClustered(true).setHAEnabled(true).setHAGroup("MI")
 //      .setClusterHost("10.0.7.34");
-    CompletableFuture<Vertx> future = new CompletableFuture<>();
-    Vertx.clusteredVertx(options, ar -> {
-      if (ar.succeeded()) {
-        future.complete(ar.result());
-      } else {
-        future.completeExceptionally(ar.cause());
-      }
-    });
-    vertx = future.get();
-  }
+        CompletableFuture<Vertx> future = new CompletableFuture<>();
+        Vertx.clusteredVertx(options, ar -> {
+            if (ar.succeeded()) {
+                future.complete(ar.result());
+            } else {
+                future.completeExceptionally(ar.cause());
+            }
+        });
+        vertx = future.get();
+    }
 
-  /**
-   * Exposes the clustered Vert.x instance.
-   * We must disable destroy method inference, otherwise Spring will call the {@link Vertx#close()} automatically.
-   */
-  @Bean()
+    /**
+     * Exposes the clustered Vert.x instance.
+     * We must disable destroy method inference, otherwise Spring will call the {@link Vertx#close()} automatically.
+     */
+    @Bean()
 //  @Bean(destroyMethod = "")
-  Vertx vertx() {
-    return vertx;
-  }
+    Vertx vertx() {
+        return vertx;
+    }
 
 
-  @PreDestroy
-  void close() throws ExecutionException, InterruptedException {
-    System.out.println("vertx 关闭");
+    @PreDestroy
+    void close() throws ExecutionException, InterruptedException {
+        System.out.println("vertx 关闭");
 //    CompletableFuture<Void> future = new CompletableFuture<>();
 //    vertx.close(ar -> future.complete(null));
 //    future.get();
-  }
+    }
 }
