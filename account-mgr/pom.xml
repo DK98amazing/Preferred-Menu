@@ -6,7 +6,7 @@
         <groupId>com.preferred.menu</groupId>
         <artifactId>preferred-menu-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/>
+        <relativePath>../</relativePath>
     </parent>
 
     <artifactId>account-mgr</artifactId>
