@@ -8,8 +8,6 @@ import com.preferred.menu.rabbitmq.Producer;
 import com.preferred.menu.vertx.VerticleHttp;
 import com.preferred.menu.vertx.VerticleHttp2;
 import com.preferred.menu.websocket.config.WebSocketServer;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import io.vertx.core.Vertx;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -31,7 +29,6 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Bean;
@@ -58,7 +55,6 @@ import java.util.concurrent.TimeUnit;
 @EnableCaching
 @EnableAdminServer
 @EnableConfigurationProperties(ConfigProperties.class)
-@EnableEurekaServer
 public class Application {
     private static Logger LOG = LoggerFactory.getLogger(Application.class);
 
@@ -116,28 +112,25 @@ public class Application {
             producer.send();
             HttpGet httpGet = new HttpGet("http://localhost:8088/test/test2");
             //admin1:admin1
-            httpGet.setHeader("Authorization", "Basic YWRtaW4xOmFkbWluMQ==");
+            httpGet.setHeader("Authorization", "Basic YWRtaW46YWRtaW4=");
             CloseableHttpClient httpClient = HttpClientBuilder.create().build();
             CloseableHttpResponse response = httpClient.execute(httpGet);
-            LOG.info(String.valueOf(response.getStatusLine()));
+            LOG.info("1. " + String.valueOf(response.getStatusLine()));
 
             HttpGet httpGet2 = new HttpGet("http://localhost:8088/test/test2");
             //admin2:admin2
-            httpGet.setHeader("Authorization", "Basic YWRtaW4yOmFkbWluMg==");
+            httpGet.setHeader("Authorization", "Basic YWRtaW46YWRtaW4=");
             CloseableHttpClient httpClient2 = HttpClientBuilder.create().build();
             CloseableHttpResponse response2 = httpClient2.execute(httpGet2);
-            LOG.info(String.valueOf(response2.getStatusLine()));
+            LOG.info("2. " + String.valueOf(response2.getStatusLine()));
 
-            RestTemplate restTemplate = restTemplateBuilder.basicAuthentication("admin2", "admin2").build();
-            ResponseEntity<String> result = restTemplate.getForEntity("http://localhost:8088/test/test", String.class);
-            LOG.info(result.getHeaders() + "\n" + result.getStatusCode() + "\n" + result.getBody());
-
-            Client client = Client.create();
-            client.setConnectTimeout(10 * 1000);
-            client.setReadTimeout(10 * 1000);
-            client.addFilter(new HTTPBasicAuthFilter("admin2", "admin2"));
-            String resultJersey = client.resource("http://localhost:8088/test/test").get(String.class);
-            LOG.info(resultJersey);
+            try {
+                RestTemplate restTemplate = restTemplateBuilder.basicAuthentication("admin", "admin").build();
+                ResponseEntity<String> result = restTemplate.getForEntity("http://localhost:8088/test/test", String.class);
+                LOG.info("3. " + result.getHeaders() + "\n" + result.getStatusCode() + "\n" + result.getBody());
+            } catch (Exception e) {
+                LOG.error("Exception : ", e);
+            }
 
             vertx.deployVerticle(verticleHttp2);
 //            vertx.deployVerticle(verticleHttp);

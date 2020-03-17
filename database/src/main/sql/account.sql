@@ -71,3 +71,23 @@ CREATE TABLE sys_role_resource
 INSERT INTO sys_role_resource(
 	id, role_id, resource_id)
 	VALUES ('admin', 'admin', 'all');
+
+drop table user;
+create table user (
+  id int not null primary key auto_increment,
+	name VARCHAR(50),
+	age int
+);
+
+insert into user VALUES(1, '111', 20);
+insert into user VALUES(2, '333', 25);
+insert into user VALUES(3, '555', 30);
+
+select * from user;
+
+drop table customer;
+create table customer(
+    id int primary key not null auto_increment,
+	first_name varchar(100),
+    last_name varchar(100)
+)

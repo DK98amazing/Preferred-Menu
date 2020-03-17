@@ -4,7 +4,10 @@ package com.preferrd.menu.account.handler;
 
 import com.preferrd.menu.account.service.SysUserService;
 import com.preferrd.menu.account.shiro.MyShiroRealm;
+import com.preferrd.menu.database.dao.UserMapper;
 import com.preferrd.menu.database.model.SysUser;
+import com.preferrd.menu.database.model.User;
+import com.preferrd.menu.database.model.UserExample;
 import com.prefrred.exception.SelectException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -15,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +47,8 @@ public class SysUserHandler {
     private RedisTemplate accountRedisTemplate;
     @Autowired
     private HttpServletRequest httpServletRequest;
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping("/myindex")
     public String toindex(ModelMap modelMap) {
@@ -74,6 +78,15 @@ public class SysUserHandler {
     SysUser getUserById(@RequestParam(value = "userId",
             required = false) String userId) {
         return sysUserService.getSysUser(userId);
+    }
+
+    @GetMapping("/getUser")
+    User getUser(@RequestParam(value = "userId",
+    required = false) String userId) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andAgeEqualTo(25);
+        return userMapper.selectByExample(userExample).get(0);
     }
 
     @GetMapping("/getSysUser/{userId}")

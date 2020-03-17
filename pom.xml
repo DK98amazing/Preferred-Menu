@@ -37,7 +37,6 @@
         <module>zookeeper</module>
         <module>vertx</module>
         <module>springboot-clustering-hazelcast</module>
-        <module>eureka</module>
     </modules>
 
 

@@ -14,6 +14,22 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+<!--            <exclusions>-->
+<!--                &lt;!&ndash; 排除自带的logback依赖 &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-starter-logging</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-log4j</artifactId>-->
+<!--            <version>1.3.8.RELEASE</version>-->
+<!--        </dependency>-->
+        <dependency>
             <groupId>com.preferred.menu</groupId>
             <artifactId>aop-log-mgr</artifactId>
             <version>0.0.1-SNAPSHOT</version>
@@ -60,17 +76,17 @@
         </dependency>
         <dependency>
             <groupId>com.preferred.menu</groupId>
+            <artifactId>springboot-data-jpa</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.preferred.menu</groupId>
             <artifactId>exception</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.preferred.menu</groupId>
             <artifactId>websocket</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.preferred.menu</groupId>
-            <artifactId>eureka</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -100,17 +116,17 @@
             <version>2.1.3.RELEASE</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>jersey</groupId>
-            <artifactId>client</artifactId>
-            <version>1.3</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.10</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.utry</groupId>-->
+<!--            <artifactId>log4j-ext</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
