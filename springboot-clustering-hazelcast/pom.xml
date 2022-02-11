@@ -15,7 +15,7 @@
   <artifactId>springboot-clustering-hazelcast</artifactId>
 
   <properties>
-    <vertx.version>3.8.0</vertx.version>
+    <vertx.version>3.9.4</vertx.version>
   </properties>
 
 
